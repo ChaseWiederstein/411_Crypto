@@ -3,16 +3,17 @@ title: "Cryptography"
 author: "Chase Wiederstein"
 date: "2022-10-11"
 output_dir: "docs"
-output:
-  pdf_document:
-    keep_tex: true
+output: pdf_document
+# output:
+#   pdf_document:
+#     keep_tex: true
 bibliography: references.bib
 csl: aims-mathematics.csl
 knit: (function(inputFile, encoding) { 
       out_dir <- 'docs';
       rmarkdown::render(inputFile,
                         encoding=encoding, 
-                        output_file=file.path(dirname(inputFile), out_dir, '411_ResearchPaper.tex')) })
+                        output_file=file.path(dirname(inputFile), out_dir, '411_ResearchPaper.pdf')) })
 ---
 
 ```{r setup, include=FALSE}
