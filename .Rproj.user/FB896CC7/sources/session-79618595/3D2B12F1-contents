@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+margin-top: 15px;
+background-color: #000000;
+}
+.iframe-container {
+text-align:center;
+width:100%;
+display:block;
+}
+</style>
+<body>
+<div class="iframe-container">
+  
+<iframe src="https://chasewiederstein.github.io/411_Crypto/docs/411_ResearchPaper.tex" width="1000px" height="800px">
+</iframe>
+</div>
+</body>
+</html>
