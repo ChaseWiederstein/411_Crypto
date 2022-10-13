@@ -3,7 +3,9 @@ title: "Cryptography"
 author: "Chase Wiederstein"
 date: "2022-10-11"
 output_dir: "docs"
-output: pdf_document
+output: 
+  pdf_document:
+    extra_dependencies: ["flafter"]
 # output:
 #   pdf_document:
 #     keep_tex: true
@@ -13,23 +15,23 @@ csl: aims-mathematics.csl
 #       out_dir <- 'docs';
 #       rmarkdown::render(inputFile,
 #                         encoding=encoding, 
-#                         output_file=file.path(dirname(inputFile), out_dir, '411_ResearchPaper.pdf')) })
-#                         
+#                         output_file=file.path(dirname(inputFile), out_dir, #'411_ResearchPaper.pdf')) })
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Header 
-$ i $
- 
-```{r To-Do-List, include=FALSE, eval=FALSE}
 
-# To Do: 
-
-
-
+```{r load-libraries, echo=FALSE, include=FALSE}
+library(ggplot2)
+library(ggthemes)
+library(kableExtra)
 ```
+
+```{r load-data, echo=FALSE, include=FALSE}
+mtcars <- readRDS("./data/mtcars.rds")
+```
+
 # Introduction
 
 
@@ -37,42 +39,36 @@ $ i $
 
 “The first cipher device was probably invented by Leon Battista Alberti, an automatic cipher device, where he used a wheel.” ([Naser, 2021, p. 12](zotero://select/library/items/B68WUS6S)) ([pdf](zotero://open-pdf/library/items/S22QKEUR?page=2&annotation=ZTYAEGYV))[@naserCryptographyAncientHistory2021]
 
-```{r print, echo=FALSE}
-# no code just output
-print("Hello")
-```
- 
- 
- 
-  Inline link 
+# Sample Table
 
-[Rmakrdown Cheatsheet](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-```
-Hey
-```
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r mtcars-table, echo=FALSE}
+#https://haozhu233.github.io/kableExtra/
+kableExtra::kbl(mtcars[1:5, 1:5], booktabs = T)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+\newpage
+
+# Sample Plot
+
+```{r mtcars-plot, echo=FALSE, fig.width=5, fig.height=3, fig.cap="A plot"}
+mtcars |> 
+  ggplot() +
+  aes(hp, mpg, group = factor(cyl), color = factor(cyl)) +
+  geom_point() +
+  theme_minimal()
+```
+
+\newpage
 
 # References
 
+<div id="refs"></div>
+
+\newpage
+
+# Appendix
 
 
 

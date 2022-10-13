@@ -3,10 +3,16 @@
 
 This paper discusses the history and evolution of encryption and its foundations in mathematics.
 
-# Workflow:
+# Research Workflow:
 
 find Pdf --> Zotero --> Annotate --> Export Citations --> 
 citr insert citation --> knit 
+
+# Code Workflow:
+
+find new data --> download to `data-raw\new-data` --> 
+process data w/ `script.R` --> saveRDS("./data")  -->
+load into `paper.Rmd`
 
 # Acknowledgements:
 
