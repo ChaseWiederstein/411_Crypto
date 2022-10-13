@@ -12,7 +12,7 @@ citr insert citation --> knit
 
 - [Research Rabbit](https://www.researchrabbit.ai/)
 
-- [Rmarkdown Cheat Sheet](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+- [Rmarkdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
 - [Simon Singh - The Codebook](https://simonsingh.net/books/the-code-book/)
 
