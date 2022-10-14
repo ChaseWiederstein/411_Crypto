@@ -96,6 +96,65 @@ kbl(ascii, longtable = T, booktabs = T, caption = "US-ASCII Printable Characters
 ```
 
 
+\newpage
+
+# Appendix - Encrypt Number Using RSA
+
+This is a short RSA encryption example taken from Chapter [5.3. RSA Public Key Cryptography](https://www.garykessler.net/library/crypto.html#dhmath), Introduction to Cryptography by Gary Kessler. To encrypt a message, the receiver generates two public keys $n$ and $e$, and one private key $d$.
+
+## Step 1. 
+
+Choose two prime numbers, $p$ and $q$. From these numbers you can calculate the modulus, $n = pq$.
+
+```{r rsa-number-step-1}
+p <- 3; q <- 5
+n <- p * q
+```
+
+## Step 2.
+
+Select a third number, $e$, that is relatively prime to (i.e., it does not divide evenly into) the product $(p-1)(q-1)$. The number $e$ is the public exponent. 
+$(p -1) * (q - 1) = 8$, so choose 11.
+
+```{r rsa-number-step-2}
+e <- 11
+```
+
+## Step 3.
+
+Calculate an integer $d$ from the quotient $(ed - 1) / [(p - 1)(q - 1)]$. The number $d$ is the private exponent.
+
+```{r rsa-number-step-3}
+d <- 3
+```
+
+## Step 4.
+
+Compose a message $M$. Here, the message consists of a single integer "7".
+
+```{r rsa-number-step-4}
+M <- 7
+```
+
+## Step 5.
+
+Encrypt message to cipher text $C$ with the equation, $C = M^e \mod n$.
+
+```{r rsa-number-step-5}
+(C <- (M^e) %% n)
+```
+
+## Step 6.
+
+The receiver decrypts the ciphertext $C$ using the private key value $(d,n)=(3,15)$.
+
+```{r rsa-number-step-6}
+(C^d) %% n
+```
+
+
+
+
 
 
 
