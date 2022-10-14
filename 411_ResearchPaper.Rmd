@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r load-libraries, echo=FALSE, include=FALSE}
 library(ggplot2)
 library(ggthemes)
+library(knitr)
 library(kableExtra)
 ```
 
@@ -69,6 +70,32 @@ mtcars |>
 \newpage
 
 # Appendix
+
+```{r primes, echo=FALSE}
+#https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
+library(kableExtra)
+primes <- readRDS("./data/primes.rds")
+kableExtra::kbl(primes[1:50, ], 
+                longtable = T, 
+                booktabs = T,
+                caption = "First 500 Primes") |> 
+  kable_styling(latex_options = c("repeat_header"))
+
+```
+
+\newpage
+
+# Appendix
+
+```{r ascii, echo=FALSE}
+#https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf
+library(kableExtra)
+ascii <- readRDS("./data/ascii.rds")
+kbl(ascii, longtable = T, booktabs = T, caption = "US-ASCII Printable Characters") |> 
+  kable_styling(latex_options = c("repeat_header")) 
+```
+
+
 
 
 
