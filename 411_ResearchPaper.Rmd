@@ -20,9 +20,27 @@ csl: aims-mathematics.csl
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Header 
-$ i $
+# History of Cryptography
+  Cryptography has been around for centuries and is simply a form of communication. The most simple definition of cryptography is the art of creating and interpreting secret messages. To create a secret message is called "encrypting" and to interpret a secret message is called "decrypting." 
+
+  One of the oldest and most famous methods of cryptography is known as the Caeser Cipher. The Caeser Cipher was quite simple. It is just a shifting of the alphabet. First, assign the numbers 0-25 to the alphabet as such. 
+  
+```{r echo = FALSE, results = 'asis'}
+df<- data.frame(0:25, LETTERS)
+df
+library(kableExtra)
+kbl(df)
+```
+Then, the encrypter will choose a shift. Suppose the shift is $n = 5$. Each letter in the alphabet will shift 5 units to the right. A will become 5, B will become 6, C will become 7, and so one. Using modular arithmetic, this can be explained using $E_n(x) = x+n(mod 26)$ where $x$ is the original value of the letter and $n$ is the shift value. 
+```{r echo = FALSE, results = 'asis'}
+df<- data.frame(0:25, LETTERS)
+df
+library(kableExtra)
+kbl(df)
+```
+After encrypting the message and sending it, decrypting it is just as simple. All the receiver needs is the key to unlocking the message, the shifting value, $n$. To decrpyt, you simply use the function $D_n(x) = x - n (mod26)$. 
  
+Suppose I want to encrpyt the word "CRYPTOGRAPHY" to send to a fellow classmate. Using a shift of $n = 6$, and plugging each individual value of original letter in "CRYPTOGRAPHY" into the encrypting equation, $E_n(x) = n + x (mod26)$ yields the string of letters "IXEVYUMXGVNE." To decrypt, the fellow classmate will use the key of $n = 6$ allow with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar Cipher is still a foundational model of how cryptography works. 
 ```{r To-Do-List, include=FALSE, eval=FALSE}
 
 # To Do: 
