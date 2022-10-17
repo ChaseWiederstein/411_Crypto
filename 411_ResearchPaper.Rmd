@@ -40,8 +40,10 @@ Then, the encrypter will choose a shift. Suppose the shift is $n = 5$. Each lett
 # load data
 caesar <- readRDS("./data/caesar.rds")
 # display
-kableExtra::kbl(caesar, booktabs = T,  caption = "Caesar (Substitution) Cipher") |> 
-  kable_styling(latex_options = c("striped", "scale_down", "hold_position"))
+kableExtra::kbl(caesar, booktabs = T, caption = "Caesar (Substitution) Cipher") |>
+    kable_styling(latex_options = c("striped", "scale_down", "hold_position")) |>
+    column_spec(2, color = c("red", "black")) |>
+    column_spec(7, color = c("black", "red"))
 ```
 
 After encrypting the message and sending it, decrypting it is just as simple. All the receiver needs is the key to unlocking the message, the shifting value, $n$. To decrpyt, you simply use the function $D_n(x) = x - n (mod26)$. 
