@@ -29,30 +29,157 @@ library(knitr)
 library(kableExtra)
 ```
 
-# History of Cryptography
+# Caesar's Cipher
   Cryptography has been around for centuries and is simply a form of communication. The most simple definition of cryptography is the art of creating and interpreting secret messages. To create a secret message is called "encrypting" and to interpret a secret message is called "decrypting." 
 
-  One of the oldest and most famous methods of cryptography is known as the Caesar Cipher. The Caesar Cipher was quite simple. It is just a shifting of the alphabet. First, assign the numbers 0-25 to the alphabet as such. 
-  
-Then, the encrypter will choose a shift. Suppose the shift is $n = 5$. Each letter in the alphabet will shift 5 units to the right. A will become 5, B will become 6, C will become 7, and so one. Using modular arithmetic, this can be explained using $E_n(x) = x+n(mod 26)$ where $x$ is the original value of the letter and $n$ is the shift value. 
+  One of the oldest and most famous methods of cryptography is known as the Caesar's Cipher used in the first century B.C. by Julius Caesar[@leftonNumberTheoryPublicKey1991]. The Caesar's Cipher is quite simple and is known as a substitution cipher. It is just a shifting of the alphabet. First, assign the numbers 0-25 to the alphabet respectively. Then, the encrypter will choose a shift. Suppose the shift is $n = 2$. Each letter in the alphabet will shift 2 units to the right. A will become 2, B will become 3, C will become 4, and so one. Using modular arithmetic, this can be explained using $E_n(x) = x+n(mod 26)$ where $x$ is the numerical value of the letter and $n$ is the shift value. 
+
+After encrypting the message and sending it, decrypting it is just as simple. All the receiver needs is the key to unlocking the message, the shifting value, $n$. To decrpyt, you simply use the function $D_n(x) = x - n (mod26)$. 
+ 
+Suppose I want to encrpyt the word "CRYPTOGRAPHY" to send to a fellow classmate using a shift of $n = 5$. First, I plug the numerical number value of each individual character in the string "CRYPTOGRAPHY" into the encrypting equation, $E_n(x) = n + x (mod26)$. 
 
 ```{r caesar-cipher, echo = FALSE}
 # load data
 caesar <- readRDS("./data/caesar.rds")
 # display
-kableExtra::kbl(caesar, booktabs = T, caption = "Caesar (Substitution) Cipher") |>
+kableExtra::kbl(caesar, booktabs = T, caption = "Caesar's Cipher 5 Unit Shift") |>
     kable_styling(latex_options = c("striped", "scale_down", "hold_position")) |>
     column_spec(2, color = c("red", "black")) |>
     column_spec(7, color = c("black", "red"))
 ```
 
-After encrypting the message and sending it, decrypting it is just as simple. All the receiver needs is the key to unlocking the message, the shifting value, $n$. To decrpyt, you simply use the function $D_n(x) = x - n (mod26)$. 
- 
-Suppose I want to encrpyt the word "CRYPTOGRAPHY" to send to a fellow classmate. Using a shift of $n = 6$, and plugging each individual value of original letter in "CRYPTOGRAPHY" into the encrypting equation, $E_n(x) = n + x (mod26)$ yields the string of letters "IXEVYUMXGVNE." To decrypt, the fellow classmate will use the key of $n = 6$ allow with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar Cipher is still a foundational model of how cryptography works. 
 
-```{r load-data, echo=FALSE, include=FALSE}
-mtcars <- readRDS("./data/mtcars.rds")
-```
+  Now, the encrypted message will read the character string of "HWDUYTLWFUMD." To decrypt, the fellow classmate will use the key of $n = 6$ along with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar Cipher is still a foundational model of how cryptography works. 
+
+
+# RSA Cryptography
+Since were no longer in Roman times, cryptography has become more important as we communicate globally with the internet. The sharing of credit card numbers, social security, names, etc. online is an everyday occurrence and security for our information is a must. RSA cryptography is one solution protecting us from those who wish to steal our information. 
+
+........ Insert history, the names and shit.....
+
+RSA uses two keys: a "public key" used for encryption, and a "private key" used for decryption.
+
+# RSA Algorithm
+The RSA algorithm can be broken up into 3 sections: key generation, encryption, and decryption.  
+
+# Key Generation Algorithm
+Step 1: Find two large primes, $p_0$ and $p_1$, such that their product, $n$, is of the required bit length. These lengths will usually be of the standard  1024, 2048,and 3027 bits. (CITE-pg 22 fips 186-3) 
+
+Step 2: Calculate $n= p_0p_1$ and use Euler's $\phi$-Function to calculate $\phi(n) = (p_0-1)(p_1-1)$.  
+
+Step 3: Choose some integer $e$ such that $1<e<\phi$ and  a and $\phi$ are relatively prime. i.e. $(e, \phi) = 1$.  
+
+Step 4: Calculate d, the multiplicative inverse of e. i.e. $d\equiv e^{-1} (mod \phi)$
+
+Step 5: Done! The "public key" is now $(n, e)$ and the "private key" is $(n, d)$.
+
+
+## Finding Large Primes
+Calculating large primes for $p_0$ and $p_1$ is one of the easier parts of the Key Generation Algorithm with the help of Fermat's Little Theorem and the Primality Test. 
+
+#### Fermat's Little Theorem
+If $p$ is a prime and $a$ is an integer such that $p\nmid a$, then $a^{p-1}\equiv 1 (mod p)$.  
+
+#### Lemma:
+If $a$ and $m$ are relatively prime, then the least residues of $a, 2a, 3a,...,(m-1)a(mod m)$ are equivalent to $1, 2, 3,..., (m-1)(mod m)$. 
+
+##### Proof: 
+Let $p$ be a prime and $a\in \mathbb{Z}$ such that $p\nmid a$.
+By definition of "relatively prime," $(a,p) = 1$.
+Thus, by the Lemma mentioned above, $a, 2a, 3a,..., (p-1)a(mod p)$ have the least residues of $1, 2, 3,..., p-1(mod p)$ up to reordering. 
+Hence,
+$$
+\begin{aligned}
+a\cdot 2a\cdot 3a ...(p-1)\cdot a &\equiv 1\cdot 2\cdot 3\cdot ...(p-1)(mod p) \\
+&\equiv (p-1)! \\
+&\equiv -1(mod p) \quad \textrm{By Wilson's Theorem}
+\end{aligned}
+$$
+Note that $a\cdot 2a\cdot 3a ...(p-1)\cdot a = a^{p-1}\cdot (p-1)!)$.  
+
+Thus, $a^{p-1}\cdot (p-1)! \equiv a^{p-1}\cdot (-1) \equiv (-1)(mod p)$.  
+
+By definition of multiplicative inverse, $(-1)^{-1} \equiv (-1) (mod p) \equiv (p-1) (modp)$.
+Hence,
+$$
+\begin{aligned}
+a^{p-1} &\equiv (-1)\cdot a^{p-1}\cdot (-1) \\
+&\equiv (-1)\cdot (-1) \\
+&\equiv 1 (modp)
+\end{aligned}
+$$  
+####Primality Test 
+If $n \in \mathbb{Z}^{+}$, $n>1$, and $n$ has no prime divisor $p$ with $p \leq \sqrt{n}$, then $n$ is a prime.  
+
+Once two primes are found, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to try to create what is known as a "trapdoor function." In most simple terms, a trapdoor function is a function that easily goes in one direction, but going backwards (the inverse of the function) is more difficult. 
+
+For example, say the two prime numbers I picked were 257 and 331. Then, computing $n=(257)(331)=85,067$ takes no time at all. Now consider going the other direction. If I gave you the product, 85,067 to begin with and asked you to find the two primes I multiplied together, then this process would take much longer. Going one direction was easy, but going the other direction was much more difficult. The same difficulty goes for computers. This is the beauty of RSA encryption. Algorithms can be ranked by their efficiency. In the example above, 257 and 331 are incredibly small primes relative to the primes used for RSA encryption. Multiplying two of these large numbers still takes a small amount of time and resources. However, factoring $n$ is an incredibly lengthy process to figure out the keys. In fact, recovering a prime number of 1024 bits would require a years worth of work on $10 million machine, and recovering a prime number of 2048 bits would require several billion times more work.[@jahanImprovedRSACryptosystem2015] However, this process is possible due to the "Unique Factorization Theorem." The prime factorization of 1024 bit number (308 digits) may still be an incredibly long factorization. 
+
+### Unique Factorization Theorem
+Every natural number $n>1$ can be uniquely expressed as a product of primes.  
+
+i.e. $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$.
+
+#Idea: include a really big number  
+
+##Euler's Totient Function  
+Euler's Totient function is relatively simple. For any positive integer, $n$, $\phi(n)$
+is the sum of all the positive divisors of $n$ denoted as:  
+$$
+\phi(n)= \sum\limits_{d\mid n}d
+$$
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+# Next Generation in Encryption Standards
+
+Because of advancements in computer technology, the next generation of encryption standards is currently under consideration by the National Institute of Standards and Technology ("NIST").
+
+## NIST
+
+The NIST is the premier, standard-setting organization in the U.S.  According to its website, the mission of the NIST is to "promote U.S. innovation and industrial competitiveness by advancing measurement science, standards, and technology in ways that enhance economic security and improve our quality of life." Originally founded in 1901, the NIST is a part of the U.S. Department of Commerce and has led the promulgation of encryption standards. NIST technology secures tablets, cellphones, and ATMs; encrypts international transactions on the web; and protects US federal information including those with national security implications.
+
+NIST's first encryption standard was known as the Data Encryption Standard (DES) and was adopted in 1977. The DES standard, its definition, and processing standards were withdrawn in 2005. The NIST published its second standard, the Advanced Encryption Standard (AES), in 1997 after a 4 1/2-year process. The AES was officially adopted in 2001. The encryption algorithm is known as the "Rijndael" algorithm and was developed by Belgium scientists Joan Daemen and Vincent Rijmen. (The algorithm is pronounced as "rain doll"). The Rijndael algorithm was picked as the best out of the 15 originally submitted algorithms.  NIST is in the process of adopting its third standard because of advances in quantum computing.
+
+## Quantum Computing
+
+Quantum computing is the next generation in computer technology and harnesses the power of quantum mechanics. According to [wikipedia](https://en.wikipedia.org/wiki/Quantum_computing), "while quantum computers provide no additional advantages over classical computers in terms of computability, quantum algorithms for certain problems have significantly lower time complexities than corresponding known classical algorithms. Notably, quantum computers are believed to be able to quickly solve certain problems that no classical computer could solve in any feasible amount of time—a feat known as "quantum supremacy."
+
+NIST's annual report, "[2021 Cybersecurity and Privacy Annual Report](https://bit.ly/3sLIzal)",
+described the state of quantum computing and cryptography as follows:
+
+> [T]here has been steady progress in building quantum computers – machines
+that exploit quantum mechanical phenomena to solve problems that are difficult or intractable
+for conventional computers. When the capacity to build large-scale quantum computers exists, they will be able to break many of the public-key cryptosystems currently in use. This weakness would seriously compromise the confidentiality and integrity of digital communications online and elsewhere.
+
+An ominous prediction was offered within the report that current public key encryption systems will be obsolete within the next 20 years.
+
+McKinsey and Company releases a quarterly report entitled, "[Quantum Technology Monitor](https://mck.co/3Nilh5a)."  In June 2022, McKinsey documented $1.24 billion in private investment start-ups and $1.9 billion of announced government funding for the development of quantum technology.  China increased its quantum technology patent activity and originated more than half globally. "Public and private funding continues to **skyrocket** around the world, with North America still investing the most."
+
+## Standardized Algorithm
+
+The next generation of encryption standards is being considered by NIST and deemed a priority because of advances in quantum computing.  To meet this new challenge, NIST began by evaluating 15 new algorithms. The algorithms were evaluated in rounds with the third round victors being announced in 2022 and a fourth round to be held for the remaining algorithms.  According to the latest news release on July 5, 2022, NIST will recommend for most use cases the CRYSTALS-KYBER for key establishment and CRYSTALS-Dilithium for digital signatures. The current status of the standard is maintained on the NIST [Post-Quantum Cryptography Project website](https://csrc.nist.gov/Projects/post-quantum-cryptography).
+
+In describing CRYSTALS-KYBER's performance, the NIST declared the public and cipher key size "in the order of a thousand bytes which should be acceptable for most applications." The [conclusion](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf) was that "the security of KYBER  has been thoroughly analyzed and is based on a strong framework of results in lattice-based cryptography. KYBER has excellent performance overall in software, hardware, and many hybrid settings."
+
+# Conclusion
+
+
+
+
+
 
 # Introduction
 
@@ -61,26 +188,11 @@ mtcars <- readRDS("./data/mtcars.rds")
 
 “The first cipher device was probably invented by Leon Battista Alberti, an automatic cipher device, where he used a wheel.” ([Naser, 2021, p. 12](zotero://select/library/items/B68WUS6S)) ([pdf](zotero://open-pdf/library/items/S22QKEUR?page=2&annotation=ZTYAEGYV))[@naserCryptographyAncientHistory2021]
 
-# Sample Table
 
-```{r mtcars-table, echo=FALSE}
-#https://haozhu233.github.io/kableExtra/
-kableExtra::kbl(mtcars[1:5, 1:5], booktabs = T)
-```
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 \newpage
 
-# Sample Plot
 
-```{r mtcars-plot, echo=FALSE, fig.width=5, fig.height=3, fig.cap="A plot"}
-mtcars |> 
-  ggplot() +
-  aes(hp, mpg, group = factor(cyl), color = factor(cyl)) +
-  geom_point() +
-  theme_minimal()
-```
 
 \newpage
 
