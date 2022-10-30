@@ -50,6 +50,49 @@ kableExtra::kbl(caesar, booktabs = T, caption = "Caesar's Cipher 5 Unit Shift") 
 
 
   Now, the encrypted message will read the character string of "HWDUYTLWFUMD." To decrypt, the fellow classmate will use the key of $n = 6$ along with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar Cipher is still a foundational model of how cryptography works. 
+  
+  
+  
+  
+  # RSA History
+
+## Asymetric public-private Keys
+
+Since the origination of secret messages, the challenge was for the sender and receiver of the message to have the same key for encoding and decoding a message.  The process of "key distribution" required the delivery of the key to the receiver of the message.  While it might seem like a trivial issue, "it became the overriding problem for postwar cryptographers.  If two parties wanted to communicate securely, they had to rely on a third party to deliver the key, and this became the weakest link in the chain of security."[@singhCodeBook1999] As trade between countries increased post World War II, it required payments to be made across borders and sometimes at great distances.  The cost associated with the delivery of keys became prohibitive and banks, in particular, began to investigate how to make the process more efficient.  The solution that had evaded discovery for centuries was first proposed by two Americans Whitfield Diffie and Martin Hellman in 1976. Their idea was to have an "asymmetric public-private key." This discovery is considered "to be the greatest cryptographic achievement since the invention of the monoalphabetic cipher, over two thousand years ago." [@singhCodeBook1999]
+
+
+## Diffie-Hellman
+
+Whitfield Diffie was born in 1944 and spent much of his childhood in and around Queens, New York.  Fascinated with mathematics at an early age, he read books like *The Chemical Rubber Company Handbook of Mathematical Tables* and G.H. *Hardy's Course of Pure Mathematics*.  He attended and graduated from the Massachusetts Institute of Technology in 1965.  He then took a series of jobs in computer-security roles.  Diffie recognized that the key distribution problem was a riddle for the ages. He retained the concept in a special notebook called "Problems for an "Ambitious Theory of Cryptography." Diffie considered the situation where two people on the internet need to keep private a message (e-mail) or transaction (credit card number). The two parties need to share a key, but exchanging the key securely became a problem.  The volume of messages and transactions made the physical delivery of the key impractical. Without secure encryption, communication would be impossible because messages and credit card information could be discovered.
+
+At a talk at IBM, Diffie learned that a Stanford University professor was also interested in the problem, Martin Hellman.  Martin Hellman was born in 1945 in a Jewish neighborhood in the Bronx, New York. In 1974, he received a call from Whitfield Diffie and agreed to a half-hour meeting at his office.  The half-hour meeting turned into hours with Diffie leaving Hellman's home at midnight.  The two formed a partnership with another cryptography fanatic, Professor Ralph Merkle, to address the key distribution problem.
+
+## A Simple Example
+
+Examples from cryptography involve a traditional cast of characters: Alice, Bob, and Eve.  Alice (A) and Bob (B) wish to exchange a secure message such that Eve (Eavesdrop) cannot discover its contents.  Before Diffie-Hellman, Alice and Bob would have to meet to exchange keys.  If they were exchanging lots of messages or wanted to change encryption methods, they might have to meet weekly.  The system breaks down when one of them gets sick.  Couriers could help but they also add complexity and potential insecurity to the process.
+
+Let's envision a situation where Alice puts her message in an iron box and then padlocked it with a key. Alice keeps the key.  When Bob receives the message, he has no way to open the padlock. Bob needs the key that Alice retained.  This is essentially the age-old problem but restated.   Diffie-Hellman changed the way the problem was conceived.  Instead, they described this situation.  Alice locks the message in an iron box with her padlock, retaining the key, and sends the message to Bob.  Bob then takes the box, adds his padlock with his key, and returns the box to Alice.  Alice receives the box but it now has two locks.  She takes her padlock off the box, leaving only Bob's padlock.  She then sends the box back to Bob.  Bob receives the box with only his padlock.  He removes the padlock with the key he retained and reads the message. No padlock key was exchanged.
+
+Diffie-Hellman's contribution was to propose a theoretical method whereby an encrypted message could be exchanged without the need for exchanging the keys.  The use of keys is asymmetric in that Alice's padlock key (the key that encrypted the message) is different from Bob's padlock key (the key that decrypted the message).  The discovery was "revolutionary." Singh.  Their research left unresolved how the encryption was to occur. They needed a mathematical function that was easy to encrypt but impossible for an eavesdropper to decipher.
+
+
+## One-way Encryption
+
+To turn the concept of asymmetric ciphers into a practical invention, a mathematician needed to create a function that acted as a padlock.  Most mathematical functions are considered to be two-way functions in that they are easy to do and undo.   They act like a light switch where the effort to turn the switch on is the same as turning it off.  For example, doubling a number takes the same effort as taking its square root. Diffe and Hellman were not interested in two-way functions, but instead, were looking at one-way functions. A one-way function is one where it was possible to apply a function to a number but impossible to reverse.  These kinds of functions are sometimes described as "Humpty-Dumpty" functions because it's easy to get Humpty-Dumpty up on the wall, but hard to put him back together after he falls. Diffe-Hellman-Merkle would attempt to find a solution in modular arithmetic, but the one-way mathematical encryption would ultimately be solved by another group of mathematicians.
+
+A workable one-way mathematical function would be discovered by Ron Rivest, Adi Shamir, and Leonard Adleman. (The initials of their surnames form the acronym "RSA".) The three researchers worked together on the eighth floor of the MIT Laboratory for Computer Science and applied different approaches to the problem for a year. One evening after some Manischewitz wine, Rivest stumbled upon a possible approach and wrote the equivalent of a scientific paper overnight.  He showed the solution to his partners and, after a friendly dispute on the order of authors, they submitted the paper.  Adelman thought at the time that the paper would be "the least interesting paper" that he ever authored.  The system "went on to become the most influential cipher in modern cryptography." Singh.
+
+RSA was first announced in August 1977 in *Scientific American*. The article, "A New Kind of Cipher that Would Take Millions of Years to Break," was authored by Martin Gardner. Gardner issued a challenge to the public to decode a message and issued the public key.  The message was decoded seventeen years later and required six hundred volunteers.
+
+## Dual Discoveries
+
+Asymmetric public key encryption was discovered earlier in Great Britain by James Ellis who worked for the Government Communications Headquarters, but knowledge of the discovery was delayed because of national security. Ellis was a packrat of academic articles and discovered the idea in a trove of old telecommunications articles. A paper proposed the idea of adding noise to the telephone line to make the signal unintelligible.  The recipient would then remove the noise to hear the message.  Lacking the mathematical background to create a padlock, Ellis' discovery languished until a new mathematician joined the team.  Clifford Cocks, a recent graduate of Cambridge with a specialization in number theory, discovered a one-way function.  In recalling his epiphany, he said "it was natural to think about one-way functions, something you could do but not undo. Prime numbers and factoring was a natural candidate." From start to finish, Cox estimated that it took him no more than half an hour to solve. Singh.
+  
+  
+  
+  
+  
+  
 
 
 # RSA Cryptography
@@ -67,8 +110,7 @@ Step 1: Find two large primes, $p_0$ and $p_1$, such that their product, $n$, is
 
 Step 2: Calculate $n= p_0p_1$ and use Euler's $\phi$-Function to calculate $\phi(n) = (p_0-1)(p_1-1)$.  
 
-Step 3: Choose some integer $e$ such that $1<e<\phi$ and  a and $\phi$ are relatively prime. i.e. $(e, \phi) = 1$.  
-
+Step 3: Choose some integer $e$ such that $(e,\phi(n)) = 1$ where $1<e<\phi(n)$.
 Step 4: Calculate d, the multiplicative inverse of e. i.e. $d\equiv e^{-1} (mod \phi)$
 
 Step 5: Done! The "public key" is now $(n, e)$ and the "private key" is $(n, d)$.
@@ -120,14 +162,46 @@ Every natural number $n>1$ can be uniquely expressed as a product of primes.
 
 i.e. $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$.
 
-#Idea: include a really big number  
+#Idea: include a really big number    
 
-##Euler's Totient Function  
-Euler's Totient function is relatively simple. For any positive integer, $n$, $\phi(n)$
-is the sum of all the positive divisors of $n$ denoted as:  
+
+## Euler's Totient Function  
+If $n \in \mathbb{Z}^{+}$, $\phi(n)$ is defined to be the number of positive integers less than or equal to $n$ and relatively prime to $n$.[@dudleyElementaryNumberTheory2012] In our problem, $n$ is the multiplication of two primes, $p_0$ and $p_1$. One case of Euler's Totient Function used in the Key Generation Algorithm mentioned below.  
+
+```{r echo=FALSE}
+#include Eulers theorem
+```
+
+
+## Lemma  
+For a prime $p$ and a positve integer $k$, 
 $$
-\phi(n)= \sum\limits_{d\mid n}d
+\begin{aligned}
+\phi(p^k)=p^k\cdot (p-1)
+\end{aligned}
+$$  
+In the Key Generation Algorithm, the claim is $\phi(n)=(p_0-1)(p_1-1)$.  
+
+
+### Proof
+$n=p_0\cdot p_1$, and $n$ is a positive integer by the definition of closure. Then, $\phi(n)= \phi(p_0)\cdot \phi(p_1)$ since $\phi$ is a multiplicative function. Since $p_0$ and $p_1$ are both distinct primes, they have the unique factorization of themselves. Thus, for some positive integers $l$ and $m$,  
 $$
+\begin{aligned}
+\phi(p_0)\cdot \phi(p_1) &= (p_0^{l-1}l\cdot (p_0 -1))(p_1^{m-1}\cdot(p_1-1)) \quad \textrm{By the Lemma above} \\
+&= (p_0^{0}l\cdot (p_0 -1))(p_1^{0}\cdot(p_1-1)) \quad \textrm{Since}\quad l,m=1 \\
+&=(p_0-1)\cdot (p_1-1)
+\end{aligned}
+$$
+Therefore, $\phi(n)= (p_0-1)(p_1-1)$.  
+
+# Encryption and Decryption  (mod phi(n) or mod n???)
+We now have our two primes $p_0$ and $p_1$ that generate the modulus $n$ and have calculated $\phi(n)$. The next step is to find an some integer $e$ between $1$ and $\phi(n)$ such that $e$ and $\phi(n)$ are relatively prime. $e$ is known as the "encryption exponent" that is used for the sender generating public key. The public key is the set of positive integers $(e,n)$. Once $e$ is found, the sender then uses the equation $C\equiv M^e(modn)$ to generate the ciphertext. Ciphertext is the encrypted messaged that hides the true meaning for anyone other than the receiver wishing to read the message.  
+
+In order for the receiver to decrypt the message, the receiver needs to have the private key, the set of positive integers $(d, n)$. $d$ can be derived by the reciever because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (modn)$.
+
+
+For some message, $M$, the first step is representing the message as a number between $0$ and $n-1$. [@rivestMethodObtainingDigital1978] 
+
 
  
  
