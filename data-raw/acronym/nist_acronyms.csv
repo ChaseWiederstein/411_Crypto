@@ -1,0 +1,55 @@
+AES,Advanced Encryption Standard; specified in FIPS 1977
+ANS,American NTahtiiso npuabl lSicatatinond aisr dav ailable free of charge from: https:/
+ANSI,American National Standard Institute
+ASC,Accredited Standards Committee
+CA,Certification Authority
+CBC,Cipher Block Chaining mode; specified in SP 800-38A8
+CFB,Cipher Feedback mode; specified in SP 800-38A
+CKMS,Cryptographic Key Management System
+CP,Certificate Policy
+CPS,Certification Practice Statement
+CRL,Certificate Revocation List
+CTR,Counter Mode; specified in SP 800-38A
+DES,Data Encryption Standard; originally specified in FIPS 46; now provided in
+"",SP 800-679
+DH,Diffie−Hellman algorithm
+DNSSEC,Domain Name System Security Extensions
+DRBG,Deterministic Random Bit Generator; specified in SP 800-90A10
+DSA,Digital Signature Algorithm; specified in FIPS 18611
+ECB,Electronic Codebook mode; specified in SP 800-38A
+ECDSA,Elliptic Curve Digital Signature Algorithm
+EMC,Electromagnetic Compatibility
+FCKMS,Federal Cryptographic Key Management System
+FIPS,Federal Information Processing Standard
+FISMA,Federal Information Security Management Act
+GCM,Galois Counter Mode; specified in SP 800-38D12
+HMAC,Keyed-Hash Message Authentication Code; specified in FIPS 19813
+IEC,International Electrotechnical Commission
+IEEE,Institute of Electrical and Electronics Engineers
+IETF,Internet Engineering Task Force
+EMI,Electromagnetic Interference
+INCITS,International Committee for Information Technology Standards
+IPSEC,Internet Protocol Security
+ISO,International Organization for Standardization
+IT,Information Technology
+KMAC,KECCAK Message Authentication Code; specified in SP 800-18514
+MAC,Message Authentication Code
+MQV,Menezes−Qu−Vanstone algorithm; specified in SP 800-56A15
+NRBG,Non-deterministic Random Bit Generator
+NIST,National Institute of Standards and Technology
+OFB,Output Feedback mode; specified in SP 800-38A
+OMB,Office of Management and Budget
+OTAR,Over-the-Air-Rekeying
+PKI,Public Key Infrastructure
+RA,Registration Authority
+RBG,Random Bit Generator
+RFC,Request for Comment
+RSA,"A public key algorithm attributed to Rivest, Shamir, and Adleman"
+ROTs,Roots of Trust
+SHA,Secure Hash Algorithm
+SP,Special Publication
+SSH,Secure Shell protocol
+TCG,Trusted Computing Group
+TDEA,Triple Data Encryption Algorithm; specified in SP 800-67
+TLS,Transport Layer Security
+TPM,Trusted Platform Module

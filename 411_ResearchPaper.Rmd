@@ -339,6 +339,20 @@ kbl(ascii, longtable = T, booktabs = T, caption = "US-ASCII Printable Characters
 
 \newpage
 
+# Appendix - Acronyms
+
+The list of acronyms was taken from NIST's *[Guideline for Using
+Cryptographic Standards in the Federal Government: Cryptographic Mechanisms](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-175Br1.pdf)*.
+
+```{r acronym, echo=FALSE, eval=T}
+library(kableExtra)
+acronyms <- readRDS("./data/acronyms.rds")
+kbl(acronyms, longtable = T, booktabs = T, caption = "NIST Cryptography Acronyms") |> 
+  kable_styling(latex_options = c("repeat_header"))
+
+```
+
+
 <!-- # Appendix - Encrypt Number Using RSA -->
 
 <!-- This is a short RSA encryption example taken from Chapter [5.3. RSA Public Key Cryptography](https://www.garykessler.net/library/crypto.html#dhmath), Introduction to Cryptography by Gary Kessler. To encrypt a message, the receiver generates two public keys $n$ and $e$, and one private key $d$. -->
