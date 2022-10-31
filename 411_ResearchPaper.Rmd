@@ -1,8 +1,9 @@
 ---
-title: "Cryptography"
+title: "RSA Cryptography"
 author: "Chase Wiederstein"
-date: "2022-10-11"
+date: "2022-10-31"
 output_dir: "docs"
+fontsize: 12pt
 output: 
   pdf_document:
     extra_dependencies: ["flafter"]
@@ -27,6 +28,7 @@ library(ggplot2)
 library(ggthemes)
 library(knitr)
 library(kableExtra)
+library(dplyr)
 ```
 
 # Caesar's Cipher
@@ -52,71 +54,61 @@ kableExtra::kbl(caesar, booktabs = T, caption = "Caesar's Cipher 5 Unit Shift") 
   Now, the encrypted message will read the character string of "HWDUYTLWFUMD." To decrypt, the fellow classmate will use the key of $n = 6$ along with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar Cipher is still a foundational model of how cryptography works. 
   
   
-  
-  
-  # RSA History
 
 ## Asymetric public-private Keys
 
-Since the origination of secret messages, the challenge was for the sender and receiver of the message to have the same key for encoding and decoding a message.  The process of "key distribution" required the delivery of the key to the receiver of the message.  While it might seem like a trivial issue, "it became the overriding problem for postwar cryptographers.  If two parties wanted to communicate securely, they had to rely on a third party to deliver the key, and this became the weakest link in the chain of security."[@singhCodeBook1999] As trade between countries increased post World War II, it required payments to be made across borders and sometimes at great distances.  The cost associated with the delivery of keys became prohibitive and banks, in particular, began to investigate how to make the process more efficient.  The solution that had evaded discovery for centuries was first proposed by two Americans Whitfield Diffie and Martin Hellman in 1976. Their idea was to have an "asymmetric public-private key." This discovery is considered "to be the greatest cryptographic achievement since the invention of the monoalphabetic cipher, over two thousand years ago." [@singhCodeBook1999]
+Since the origination of secret messages, the challenge was for the sender and receiver of the message to have the same key for encoding and decoding a message.  The process of "key distribution" required the delivery of the key to the receiver of the message.  While it might seem like a trivial issue, "it became the overriding problem for postwar cryptographers.  If two parties wanted to communicate securely, they had to rely on a third party to deliver the key, and this became the weakest link in the chain of security."[@singhCodeBook1999] As trade between countries increased post World War II, it required payments to be made across borders and sometimes at great distances.  The cost associated with the delivery of keys became prohibitive and banks, in particular, began to investigate how to make the process more efficient.  The solution that had evaded discovery for centuries was first proposed by two Americans: Whitfield Diffie and Martin Hellman in 1976. Their idea was to have an "asymmetric public-private key." This discovery is considered "to be the greatest cryptographic achievement since the invention of the monoalphabetic cipher, over two thousand years ago." [@singhCodeBook1999]
 
 
 ## Diffie-Hellman
 
-Whitfield Diffie was born in 1944 and spent much of his childhood in and around Queens, New York.  Fascinated with mathematics at an early age, he read books like *The Chemical Rubber Company Handbook of Mathematical Tables* and G.H. *Hardy's Course of Pure Mathematics*.  He attended and graduated from the Massachusetts Institute of Technology in 1965.  He then took a series of jobs in computer-security roles.  Diffie recognized that the key distribution problem was a riddle for the ages. He retained the concept in a special notebook called "Problems for an "Ambitious Theory of Cryptography." Diffie considered the situation where two people on the internet need to keep private a message (e-mail) or transaction (credit card number). The two parties need to share a key, but exchanging the key securely became a problem.  The volume of messages and transactions made the physical delivery of the key impractical. Without secure encryption, communication would be impossible because messages and credit card information could be discovered.
+Whitfield Diffie was born in 1944 and spent much of his childhood in and around Queens, New York.  Fascinated with mathematics at an early age, he read books like *The Chemical Rubber Company Handbook of Mathematical Tables* and G.H. *Hardy's Course of Pure Mathematics*.  He attended and graduated from the Massachusetts Institute of Technology in 1965.  He then took a series of jobs in computer-security roles.  Diffie recognized that the key distribution problem was a riddle for the ages. He retained the concept in a special notebook called "Problems for an "Ambitious Theory of Cryptography." Diffie considered the situation where two people on the internet need to keep a message (e.g. e-mail) or a transaction private. The two parties need to share a key, but exchanging the key securely became a problem.  The volume of messages and transactions made the physical delivery of the key impractical. Without secure encryption, communication would be impossible because messages and credit card information could be discovered.
 
 At a talk at IBM, Diffie learned that a Stanford University professor was also interested in the problem, Martin Hellman.  Martin Hellman was born in 1945 in a Jewish neighborhood in the Bronx, New York. In 1974, he received a call from Whitfield Diffie and agreed to a half-hour meeting at his office.  The half-hour meeting turned into hours with Diffie leaving Hellman's home at midnight.  The two formed a partnership with another cryptography fanatic, Professor Ralph Merkle, to address the key distribution problem.
 
 ## A Simple Example
 
-Examples from cryptography involve a traditional cast of characters: Alice, Bob, and Eve.  Alice (A) and Bob (B) wish to exchange a secure message such that Eve (Eavesdrop) cannot discover its contents.  Before Diffie-Hellman, Alice and Bob would have to meet to exchange keys.  If they were exchanging lots of messages or wanted to change encryption methods, they might have to meet weekly.  The system breaks down when one of them gets sick.  Couriers could help but they also add complexity and potential insecurity to the process.
+Examples from cryptography involve a traditional cast of characters: Alice, Bob, and Eve.  Alice (A) and Bob (B) wish to exchange a secure message Eve wishes to eavesdrop and steal the message.  Before Diffie-Hellman, Alice and Bob would have to meet to exchange keys.  If they were exchanging lots of messages or wanted to change encryption methods, they might have to meet weekly.  The system breaks down when one of them gets sick.  Couriers could help but they also add complexity and potential insecurity to the process.
 
-Let's envision a situation where Alice puts her message in an iron box and then padlocked it with a key. Alice keeps the key.  When Bob receives the message, he has no way to open the padlock. Bob needs the key that Alice retained.  This is essentially the age-old problem but restated.   Diffie-Hellman changed the way the problem was conceived.  Instead, they described this situation.  Alice locks the message in an iron box with her padlock, retaining the key, and sends the message to Bob.  Bob then takes the box, adds his padlock with his key, and returns the box to Alice.  Alice receives the box but it now has two locks.  She takes her padlock off the box, leaving only Bob's padlock.  She then sends the box back to Bob.  Bob receives the box with only his padlock.  He removes the padlock with the key he retained and reads the message. No padlock key was exchanged.
+Let's envision a situation where Alice puts her message in an iron box and then padlocks it with a key. Alice keeps the key.  When Bob receives the message, he has no way to open the padlock. Bob needs the key that Alice retained.  This is essentially the age-old problem but restated. Diffie-Hellman changed the way the problem was conceived.  Instead, they described this situation.  Alice locks the message in an iron box with her padlock, retaining the key, and sends the message to Bob.  Bob then takes the box, adds his padlock with his key, and returns the box to Alice.  Alice receives the box but it now has two locks.  She takes her padlock off the box, leaving only Bob's padlock.  She then sends the box back to Bob.  Bob receives the box with only his padlock.  He removes the padlock with the key he retained and reads the message. No padlock key was exchanged.
 
-Diffie-Hellman's contribution was to propose a theoretical method whereby an encrypted message could be exchanged without the need for exchanging the keys.  The use of keys is asymmetric in that Alice's padlock key (the key that encrypted the message) is different from Bob's padlock key (the key that decrypted the message).  The discovery was "revolutionary." Singh.  Their research left unresolved how the encryption was to occur. They needed a mathematical function that was easy to encrypt but impossible for an eavesdropper to decipher.
+Diffie-Hellman's contribution was to propose a theoretical method whereby an encrypted message could be exchanged without the need for exchanging the keys.  The use of keys is asymmetric in that Alice's padlock key (the key that encrypted the message) is different from Bob's padlock key (the key that decrypted the message).  The discovery was "revolutionary." Their research left unresolved how the encryption was to occur. They needed a mathematical function that was easy to encrypt but impossible for an eavesdropper to decipher.
 
 
-## One-way Encryption
+## Trapdoor Encryption
 
-To turn the concept of asymmetric ciphers into a practical invention, a mathematician needed to create a function that acted as a padlock.  Most mathematical functions are considered to be two-way functions in that they are easy to do and undo.   They act like a light switch where the effort to turn the switch on is the same as turning it off.  For example, doubling a number takes the same effort as taking its square root. Diffe and Hellman were not interested in two-way functions, but instead, were looking at one-way functions. A one-way function is one where it was possible to apply a function to a number but impossible to reverse.  These kinds of functions are sometimes described as "Humpty-Dumpty" functions because it's easy to get Humpty-Dumpty up on the wall, but hard to put him back together after he falls. Diffe-Hellman-Merkle would attempt to find a solution in modular arithmetic, but the one-way mathematical encryption would ultimately be solved by another group of mathematicians.
+To turn the concept of asymmetric ciphers into a practical invention, a mathematician needed to create a function that acted as a padlock.  Some mathematical functions are considered to be two-way functions in that they are easy to do and undo.   They act like a light switch where the effort to turn the switch on is the same as turning it off.  For example, doubling a number takes the same effort as dividing a number by two. Diffe and Hellman were not interested in two-way functions, but instead, were looking for a one-way or "trapdoor" function. A trapdoor function is one where it was possible to apply a function to a number but much harder to reverse.  These kinds of functions are sometimes described as "Humpty-Dumpty" functions because it's easy to get Humpty-Dumpty up on the wall, but hard to put him back together after he falls. Diffe-Hellman-Merkle would attempt to find a solution in modular arithmetic, but the one-way mathematical encryption would ultimately be solved by another group of mathematicians.
 
-A workable one-way mathematical function would be discovered by Ron Rivest, Adi Shamir, and Leonard Adleman. (The initials of their surnames form the acronym "RSA".) The three researchers worked together on the eighth floor of the MIT Laboratory for Computer Science and applied different approaches to the problem for a year. One evening after some Manischewitz wine, Rivest stumbled upon a possible approach and wrote the equivalent of a scientific paper overnight.  He showed the solution to his partners and, after a friendly dispute on the order of authors, they submitted the paper.  Adelman thought at the time that the paper would be "the least interesting paper" that he ever authored.  The system "went on to become the most influential cipher in modern cryptography." Singh.
+A workable trapdoor mathematical function would be discovered by Ron Rivest, Adi Shamir, and Leonard Adleman. (The initials of their surnames form the acronym "RSA".) The three researchers worked together at an MIT Laboratory for Computer Science and applied different approaches to the problem for a year. One evening after some Manischewitz wine, Rivest stumbled upon a possible approach and wrote the equivalent of a scientific paper overnight.  He showed the solution to his partners and, after a friendly dispute on the order of authors, they submitted the paper.  Adelman thought at the time that the paper would be "the least interesting paper" that he ever authored.  The system "went on to become the most influential cipher in modern cryptography." [@singhCodeBookScience2011]
 
 RSA was first announced in August 1977 in *Scientific American*. The article, "A New Kind of Cipher that Would Take Millions of Years to Break," was authored by Martin Gardner. Gardner issued a challenge to the public to decode a message and issued the public key.  The message was decoded seventeen years later and required six hundred volunteers.
 
 ## Dual Discoveries
 
-Asymmetric public key encryption was discovered earlier in Great Britain by James Ellis who worked for the Government Communications Headquarters, but knowledge of the discovery was delayed because of national security. Ellis was a packrat of academic articles and discovered the idea in a trove of old telecommunications articles. A paper proposed the idea of adding noise to the telephone line to make the signal unintelligible.  The recipient would then remove the noise to hear the message.  Lacking the mathematical background to create a padlock, Ellis' discovery languished until a new mathematician joined the team.  Clifford Cocks, a recent graduate of Cambridge with a specialization in number theory, discovered a one-way function.  In recalling his epiphany, he said "it was natural to think about one-way functions, something you could do but not undo. Prime numbers and factoring was a natural candidate." From start to finish, Cox estimated that it took him no more than half an hour to solve. Singh.
+Asymmetric public key encryption was discovered earlier in Great Britain by James Ellis who worked for the Government Communications Headquarters, but knowledge of the discovery was delayed because of national security. Ellis was a pack rat of academic articles and discovered the idea in a trove of old telecommunications articles. A paper proposed the idea of adding noise to the telephone line to make the signal unintelligible.  The recipient would then remove the noise to hear the message.  Lacking the mathematical background to create a padlock, Ellis' discovery languished until a new mathematician joined the team.  Clifford Cocks, a recent graduate of Cambridge with a specialization in number theory, discovered a one-way function.  In recalling his epiphany, he said "it was natural to think about one-way functions, something you could do but not undo. Prime numbers and factoring was a natural candidate." From start to finish, Cox estimated that it took him no more than half an hour to solve. [@singhCodeBook1999]
   
   
-  
-  
-  
-  
+# The RSA Algorithm
+Cryptography has become more important as we communicate globally with the internet. The sharing of credit card numbers, social security, names, etc. online is an everyday occurrence and security for our information is a must. RSA cryptography is one solution protecting us from those who wish to steal our information. The RSA algorithm can be broken up into 3 sections: key generation, encryption, and decryption, consisting of about five steps.  
 
 
-# RSA Cryptography
-Since were no longer in Roman times, cryptography has become more important as we communicate globally with the internet. The sharing of credit card numbers, social security, names, etc. online is an everyday occurrence and security for our information is a must. RSA cryptography is one solution protecting us from those who wish to steal our information. 
 
-........ Insert history, the names and shit.....
+Step 1: Find two large primes, $p_0$ and $p_1$, such that their product, $n$, is of the required bit length. These lengths will usually be of the standard 1024, 2048,and 3027 bits.[@NationalInstituteStandards]
 
-RSA uses two keys: a "public key" used for encryption, and a "private key" used for decryption.
-
-# RSA Algorithm
-The RSA algorithm can be broken up into 3 sections: key generation, encryption, and decryption.  
-
-# Key Generation Algorithm
-Step 1: Find two large primes, $p_0$ and $p_1$, such that their product, $n$, is of the required bit length. These lengths will usually be of the standard  1024, 2048,and 3027 bits. (CITE-pg 22 fips 186-3) 
-
-Step 2: Calculate $n= p_0p_1$ and use Euler's $\phi$-Function to calculate $\phi(n) = (p_0-1)(p_1-1)$.  
+Step 2: Calculate $n= p_0\cdot p_1$ and use Euler's $\phi$-Function to calculate $\phi(n) = (p_0-1)\cdot (p_1-1)$.  
 
 Step 3: Choose some integer $e$ such that $(e,\phi(n)) = 1$ where $1<e<\phi(n)$.
-Step 4: Calculate d, the multiplicative inverse of e. i.e. $d\equiv e^{-1} (mod \phi)$
 
-Step 5: Done! The "public key" is now $(n, e)$ and the "private key" is $(n, d)$.
+Step 4: Calculate d, the multiplicative inverse of e. i.e. $d\equiv e^{-1} (mod \phi(n))$
+
+Step 5: The "public key" is now $(n, e)$ and the "private key" is $(n, d)$.  
+
+Step 6: Encrypt the message using $C\equiv M^e(modn)$.
+
+Step 7: Decrypt the message using
 
 
-## Finding Large Primes
+# Finding Large Primes
 Calculating large primes for $p_0$ and $p_1$ is one of the easier parts of the Key Generation Algorithm with the help of Fermat's Little Theorem and the Primality Test. 
 
 #### Fermat's Little Theorem
@@ -153,24 +145,19 @@ $$
 ####Primality Test 
 If $n \in \mathbb{Z}^{+}$, $n>1$, and $n$ has no prime divisor $p$ with $p \leq \sqrt{n}$, then $n$ is a prime.  
 
-Once two primes are found, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to try to create what is known as a "trapdoor function." In most simple terms, a trapdoor function is a function that easily goes in one direction, but going backwards (the inverse of the function) is more difficult. 
+Once two primes are found, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to create the "trapdoor function." A trapdoor function that multiplies these two primes takes little time, but going backwards (the inverse) to find the original primes takes much longer. 
 
-For example, say the two prime numbers I picked were 257 and 331. Then, computing $n=(257)(331)=85,067$ takes no time at all. Now consider going the other direction. If I gave you the product, 85,067 to begin with and asked you to find the two primes I multiplied together, then this process would take much longer. Going one direction was easy, but going the other direction was much more difficult. The same difficulty goes for computers. This is the beauty of RSA encryption. Algorithms can be ranked by their efficiency. In the example above, 257 and 331 are incredibly small primes relative to the primes used for RSA encryption. Multiplying two of these large numbers still takes a small amount of time and resources. However, factoring $n$ is an incredibly lengthy process to figure out the keys. In fact, recovering a prime number of 1024 bits would require a years worth of work on $10 million machine, and recovering a prime number of 2048 bits would require several billion times more work.[@jahanImprovedRSACryptosystem2015] However, this process is possible due to the "Unique Factorization Theorem." The prime factorization of 1024 bit number (308 digits) may still be an incredibly long factorization. 
+For example, say the two prime numbers I picked were 257 and 331. Then, computing $n=(257)(331)=85,067$ takes no time at all. Now consider going the other direction. If I gave you the product, 85,067 to begin with and asked you to find the two primes I multiplied together, then this process becomes much trickier. Going one direction was easy, but going the other direction was much more difficult. The same difficulty goes for computers. This is the beauty of RSA encryption. Algorithms can be ranked by their efficiency. In the example above, 257 and 331 are incredibly small primes relative to the primes used for RSA encryption. Multiplying two of these large numbers still takes a small amount of time and computational resources. However, factoring $n$ is require a much more complex algorithm. In fact, recovering a prime number of 1024 bits would require a years worth of work on a $10 million machine, and recovering a prime number of 2048 bits would require several billion times more work.[@jahanImprovedRSACryptosystem2015] However, this process is theoretically possible due to the "Unique Factorization Theorem." The prime factorization of 1024 bit number (308 digits) may still be an incredibly long factorization. 
 
 ### Unique Factorization Theorem
 Every natural number $n>1$ can be uniquely expressed as a product of primes.  
 
 i.e. $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$.
 
-#Idea: include a really big number    
 
 
 ## Euler's Totient Function  
 If $n \in \mathbb{Z}^{+}$, $\phi(n)$ is defined to be the number of positive integers less than or equal to $n$ and relatively prime to $n$.[@dudleyElementaryNumberTheory2012] In our problem, $n$ is the multiplication of two primes, $p_0$ and $p_1$. One case of Euler's Totient Function used in the Key Generation Algorithm mentioned below.  
-
-```{r echo=FALSE}
-#include Eulers theorem
-```
 
 
 ## Lemma  
@@ -194,19 +181,58 @@ $$
 $$
 Therefore, $\phi(n)= (p_0-1)(p_1-1)$.  
 
-# Encryption and Decryption  (mod phi(n) or mod n???)
-We now have our two primes $p_0$ and $p_1$ that generate the modulus $n$ and have calculated $\phi(n)$. The next step is to find an some integer $e$ between $1$ and $\phi(n)$ such that $e$ and $\phi(n)$ are relatively prime. $e$ is known as the "encryption exponent" that is used for the sender generating public key. The public key is the set of positive integers $(e,n)$. Once $e$ is found, the sender then uses the equation $C\equiv M^e(modn)$ to generate the ciphertext. Ciphertext is the encrypted messaged that hides the true meaning for anyone other than the receiver wishing to read the message.  
+# Encryption and Decryption 
+We now have our two primes $p_0$ and $p_1$ that generate the modulus $n$ and have calculated $\phi(n)$. The next step is to find an some integer $e$ between $1$ and $\phi(n)$ such that $e$ and $\phi(n)$ are relatively prime. $e$ is known as the "encryption exponent" that is used for the sender generating public key. The public key is the set of positive integers $(e,n)$. Once $e$ is found, the sender then uses the congruence $C\equiv M^e(modn)$ to generate the ciphertext. Ciphertext is the encrypted messaged that hides the true meaning for anyone other than the receiver wishing to read the message.  
 
-In order for the receiver to decrypt the message, the receiver needs to have the private key, the set of positive integers $(d, n)$. $d$ can be derived by the reciever because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (modn)$.
-
-
-For some message, $M$, the first step is representing the message as a number between $0$ and $n-1$. [@rivestMethodObtainingDigital1978] 
+In order for the receiver to decrypt the message, the receiver needs to have the private key, the set of positive integers $(d, n)$. $d$ can be derived by the receiver because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (modn)$. With the private key, the receiver can then use the congruence $C \equiv M^d (modn)$.
 
 
- 
- 
+#RSA Example (NOTE: NOT CORRECT)
+One method of implementing the RSA algorithm would be using the "ASCII keyboard," the American Standard Code for Information Interchange. In this example, we will just focus on A-Z with their prescribed decimal values on the ASCII keyboard.  
 
 
+```{r echo=FALSE}
+ASCII <- readRDS('./data/ascii.rds')
+ASCIItbl <- 
+  ASCII|>
+  dplyr::filter(Symbol %in% LETTERS) |>
+  dplyr::select(DEC,Symbol) |>
+  t()
+library(kableExtra)
+# display
+kableExtra::kbl(ASCIItbl, booktabs = T, caption = "Caesar's Cipher 5 Unit Shift") |>
+    kable_styling(latex_options = c("striped", "scale_down", "hold_position")) 
+
+```
+
+Suppose I wish to send the message "RSA" to a classmate. In this example, we will break the message into three separate messages $M_1$, $M_2$, and $M_3$. wThe first step is representing the message as a number between $0$ and $n-1$. [@rivestMethodObtainingDigital1978] After conversion, R will now be $M_1 = 82$, S will be $M_2=83$, and A will be $M_3=65$.
+
+First, I will select two primes (much smaller than the standard RSA). Suppose I pick $p_0=7$ and $p_1=13$.  
+
+Next, calculating $n=p_0\cdot p_1$ yields $n= 7\cdot 13 = 91$. Then use the equation $\phi(n) = (p_0-1)\cdot (p_1-1)$. Hence $\phi(55) = (6)\cdot (12) = 72$.  
+
+Now, choose some integer $e$ such that $(e,\phi(n)) = 1$ where $1<e<\phi(n)$. Supposed I pick $e=23$. 
+
+Next, I create the ciphertext with $C\equiv M^e(modn)$.  
+$$
+\begin{aligned}
+C_1 \equiv 82^{23} \equiv 10 (mod91) \\
+C_2 \equiv 83^{23} \equiv 34 (mod91) \\
+C_3 \equiv 65^{23} \equiv 39 (mod91)
+\end{aligned}
+$$
+Where $C_1$, $C_2$, and $C_3$ are the least residues (mod 91) of their respective messages. These are the messages that will be sent so that no one else can read what they say.  
+
+Once received, the receiver will then decipher the messages with their private key $(d, n)$ using the congruence $C \equiv M^d (modn)$. To find $d$, the receiver needs to calculate the multiplicative inverse of $23(mod91)$. Since $23\cdot 4 \equiv 1 (mod91)$, 4 is the multiplicative inverse.  
+
+Then, to decipher, the receiver will use the congruence $C \equiv M^d (modn)$. 
+$$
+\begin{aligned}
+M_1 \equiv 10^{4} \equiv 81 (mod91) \\
+M_2 \equiv 34^{4} \equiv 1 (mod91) \\
+M_3 \equiv 39^{4} \equiv 39 (mod91)
+\end{aligned}
+$$
 
 
 
@@ -248,7 +274,15 @@ The next generation of encryption standards is being considered by NIST and deem
 
 In describing CRYSTALS-KYBER's performance, the NIST declared the public and cipher key size "in the order of a thousand bytes which should be acceptable for most applications." The [conclusion](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf) was that "the security of KYBER  has been thoroughly analyzed and is based on a strong framework of results in lattice-based cryptography. KYBER has excellent performance overall in software, hardware, and many hybrid settings."
 
-# Conclusion
+# Conclusion  
+
+
+\newpage
+#Notes:
+1. More explanation of finding large primes
+2. Ask about a better flow in "Euler's Totient Function." Include Euler's theorem, but show it's similar to Fermat's Little Theorem. Also, need another word/title for "Lemma."
+3. Include definitions page for smaller elements like multiplicative inverse, gcd, relatively prime, etc. 
+4. (Ask) Could need to add Chinese Remainder Theorem, Euclidean Algorithm, etc. 
 
 
 
@@ -305,59 +339,59 @@ kbl(ascii, longtable = T, booktabs = T, caption = "US-ASCII Printable Characters
 
 \newpage
 
-# Appendix - Encrypt Number Using RSA
+<!-- # Appendix - Encrypt Number Using RSA -->
 
-This is a short RSA encryption example taken from Chapter [5.3. RSA Public Key Cryptography](https://www.garykessler.net/library/crypto.html#dhmath), Introduction to Cryptography by Gary Kessler. To encrypt a message, the receiver generates two public keys $n$ and $e$, and one private key $d$.
+<!-- This is a short RSA encryption example taken from Chapter [5.3. RSA Public Key Cryptography](https://www.garykessler.net/library/crypto.html#dhmath), Introduction to Cryptography by Gary Kessler. To encrypt a message, the receiver generates two public keys $n$ and $e$, and one private key $d$. -->
 
-## Step 1. 
+<!-- ## Step 1.  -->
 
-Choose two prime numbers, $p$ and $q$. From these numbers you can calculate the modulus, $n = pq$.
+<!-- Choose two prime numbers, $p$ and $q$. From these numbers you can calculate the modulus, $n = pq$. -->
 
-```{r rsa-number-step-1}
-p <- 3; q <- 5
-n <- p * q
-```
+<!-- ```{r rsa-number-step-1} -->
+<!-- p <- 3; q <- 5 -->
+<!-- n <- p * q -->
+<!-- ``` -->
 
-## Step 2.
+<!-- ## Step 2. -->
 
-Select a third number, $e$, that is relatively prime to (i.e., it does not divide evenly into) the product $(p-1)(q-1)$. The number $e$ is the public exponent. 
-$(p -1) * (q - 1) = 8$, so choose 11.
+<!-- Select a third number, $e$, that is relatively prime to (i.e., it does not divide evenly into) the product $(p-1)(q-1)$. The number $e$ is the public exponent.  -->
+<!-- $(p -1) * (q - 1) = 8$, so choose 11. -->
 
-```{r rsa-number-step-2}
-e <- 11
-```
+<!-- ```{r rsa-number-step-2} -->
+<!-- e <- 11 -->
+<!-- ``` -->
 
-## Step 3.
+<!-- ## Step 3. -->
 
-Calculate an integer $d$ from the quotient $(ed - 1) / [(p - 1)(q - 1)]$. The number $d$ is the private exponent.
+<!-- Calculate an integer $d$ from the quotient $(ed - 1) / [(p - 1)(q - 1)]$. The number $d$ is the private exponent. -->
 
-```{r rsa-number-step-3}
-d <- 3
-```
+<!-- ```{r rsa-number-step-3} -->
+<!-- d <- 3 -->
+<!-- ``` -->
 
-## Step 4.
+<!-- ## Step 4. -->
 
-Compose a message $M$. Here, the message consists of a single integer "7".
+<!-- Compose a message $M$. Here, the message consists of a single integer "7". -->
 
-```{r rsa-number-step-4}
-M <- 7
-```
+<!-- ```{r rsa-number-step-4} -->
+<!-- M <- 7 -->
+<!-- ``` -->
 
-## Step 5.
+<!-- ## Step 5. -->
 
-Encrypt message to cipher text $C$ with the equation, $C = M^e \mod n$.
+<!-- Encrypt message to cipher text $C$ with the equation, $C = M^e \mod n$. -->
 
-```{r rsa-number-step-5}
-(C <- (M^e) %% n)
-```
+<!-- ```{r rsa-number-step-5} -->
+<!-- (C <- (M^e) %% n) -->
+<!-- ``` -->
 
-## Step 6.
+<!-- ## Step 6. -->
 
-The receiver decrypts the ciphertext $C$ using the private key value $(d,n)=(3,15)$.
+<!-- The receiver decrypts the ciphertext $C$ using the private key value $(d,n)=(3,15)$. -->
 
-```{r rsa-number-step-6}
-(C^d) %% n
-```
+<!-- ```{r rsa-number-step-6} -->
+<!-- (C^d) %% n -->
+<!-- ``` -->
 
 
 
