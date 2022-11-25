@@ -6,8 +6,8 @@ output_dir: "docs"
 fontsize: 12pt
 output: 
   pdf_document:
-    # number_sections: TRUE 
-    extra_dependencies: ["flafter", "amsmath"]
+    number_sections: TRUE 
+    extra_dependencies: ["flafter", "amsmath", "amssymb", "amsthm"]
 # output:
 #   pdf_document:
 #     keep_tex: true
@@ -32,11 +32,12 @@ library(kableExtra)
 library(dplyr)
 ```
 
-# 1 Introduction  
+
+# Introduction  
   Cryptography has been around for centuries and is simply a form of communication. The most simple definition of cryptography is the art of creating and interpreting secret messages. To create a secret message is called "encrypting" and to interpret a secret message is called "decrypting."  
   
-# 1.1 Ancient History of Cryptography  
-### Caesar's Cipher
+# Ancient History of Cryptography  
+## Caesar's Cipher
   One of the oldest and most famous methods of cryptography is known as the Caesar's Cipher used in the first century B.C. by Julius Caesar[@leftonNumberTheoryPublicKey1991]. The Caesar's Cipher is quite simple and is known as a substitution cipher. It is just a shifting of the alphabet. First, assign the numbers 0-25 to the alphabet respectively. Then, the encrypter will choose a shift. Suppose the shift is $n = 2$. Each letter in the alphabet will shift 2 units to the right. A will become 2, B will become 3, C will become 4, and so on. Using modular arithmetic, this can be explained using $E_n(x) = x+n(mod 26)$ where $x$ is the numerical value of the letter and $n$ is the shift value. 
 
 After encrypting the message and sending it, decrypting it is just as simple. All the receiver needs is the key to unlocking the message, the shifting value, $n$. To decrpyt, you simply use the function $D_n(x) = x - n (mod26)$. 
@@ -56,7 +57,7 @@ kableExtra::kbl(caesar, booktabs = T, caption = "Caesar's Cipher 5 Unit Shift") 
 
   Now, the encrypted message will read the character string of "HWDUYTLWFUMD." To decrypt, the fellow classmate will use the key of $n = 5$ along with the decrypting function $D_n(x)= x-n(mod26)$ to reverse the shift and read "CRYPTOGRAPHY." However, if the message is intercepted, cracking the encrypted message would take no time at all even without the key. There are only 26 possible combinations of what the shift could be. Over time, this process of creating trickier encryption methods has become much more complex, yet the Caesar's Cipher is still a foundational model of how cryptography works. 
   
-### Spartan Scytale  
+## Spartan Scytale  
 The Spartan Scytale is a type of transposition cipher dating back to fifth century B.C. used by the ancient Greeks in times of war.[@singhCodeBookScience2011] A permutation cipher is one in which the ordering of the message is changed by a certain rule. The spartan scytale was created using a wooden shaft with a thin strip of leather wrapped around it. The sender would then write his message down onto the leather. Once he unwrapped the leather with the new message on it, the message would become encrypted. Once received, the receiver would then wrap the strip of leather around a wooden shaft of the same width to decrypt the message. 
 
 ```{r spartan-scytale, echo=FALSE, fig.cap="Spartan Scytale[2]", out.width="80%", fig.align='center'}
@@ -65,20 +66,20 @@ knitr::include_graphics("./img/spartanScytale.jpg")
 
 ```
   
-# 1.2 Contemporary Cryptography 
+# Contemporary Cryptography 
 
-### Asymetric public-private Keys
+## Asymetric public-private Keys
 
 Since the origination of secret messages, the challenge was for the sender and receiver of the message to have the same key for encoding and decoding a message. According to Auguste Kerckhoffs, one of the main principles of cryptography is the security of a cryptosystem should rely on the secrecy of a small parameter, the secret key.[@leftonNumberTheoryPublicKey1991] 
 The process of "key distribution" required the delivery of the key to the receiver of the message. If the receiver did not have the key value for the Caesar's Cipher, they could not read what it said. In modern times, all countries rely heavily on the security of information via cryptography. If one can find your key, they can read your information. As trade between countries increased post World War II, it required payments to be made across borders and sometimes at great distances.  The cost associated with the delivery of keys became prohibitive and banks, in particular, began to investigate how to make the process more efficient.  The solution that had evaded discovery for centuries was first proposed by two Americans: Whitfield Diffie and Martin Hellman in 1976. Their idea was to have an "asymmetric public-private key." This discovery is considered "to be the greatest cryptographic achievement since the invention of the monoalphabetic cipher"[@singhCodeBook1999], just like Caesar's Cipher, over two thousand years ago." 
 
-### Diffie-Hellman
+## Diffie-Hellman
 
 Whitfield Diffie was born in 1944 and graduated from the Massachusetts Institute of Technology in 1965.  He then took a series of jobs in computer-security roles. Diffie recognized that the key distribution problem was a riddle for the ages.  Diffie considered the situation where two people on the internet need to keep a message (e.g. e-mail) or a transaction private. The two parties need to share a key, but exchanging the key securely became a problem.  The volume of messages and transactions made the physical delivery of the key impractical. Without secure encryption, communication would be impossible because messages and credit card information could be discovered.
 
 At a talk at IBM, Diffie learned that a Stanford University professor was also interested in the problem, Martin Hellman. In 1974, he received a call from Whitfield Diffie and agreed to a half-hour meeting at his office.  The half-hour meeting turned into hours with Diffie leaving Hellman's home at midnight.  The two formed a partnership with another cryptography fanatic, Professor Ralph Merkle, to address the key distribution problem.
 
-### A Simple Example
+## A Simple Example
 
 Examples from cryptography involve a traditional cast of characters: Alice, Bob, and Eve.  Alice (A) and Bob (B) wish to exchange a secure message Eve wishes to eavesdrop and steal the message.  Before Diffie-Hellman, Alice and Bob would have to meet to exchange keys.  If they were exchanging lots of messages or wanted to change encryption methods, they might have to meet weekly.  The system breaks down when one of them gets sick.  Couriers could help but they also add complexity and potential insecurity to the process.
 
@@ -87,7 +88,7 @@ Let's envision a situation where Alice puts her message in a box and then padloc
 Diffie-Hellman's contribution was to propose a theoretical method whereby an encrypted message could be exchanged without the need for exchanging the keys.  The use of keys is asymmetric in that Alice's padlock key (the key that encrypted the message) is different from Bob's padlock key (the key that decrypted the message).  The discovery was "revolutionary." Their research left unresolved how the encryption was to occur. They needed a mathematical function that was easy to encrypt but impossible for an eavesdropper to decipher.
 
 
-### Trapdoor Encryption
+## Trapdoor Encryption
 
 To turn the concept of asymmetric ciphers into a practical invention, a mathematician needed to create a function that acted as a lock.  Some mathematical functions are considered to be two-way functions in that they are easy to do and undo. They act like a light switch where the effort to turn the switch on is the same as turning it off.  For example, doubling a number takes the same effort as dividing a number by two. Diffe and Hellman were not interested in two-way functions, but instead, were looking for a one-way or "trapdoor" function. A trapdoor function is one where it was possible to apply a function to a number but much harder to reverse.  These kinds of functions are sometimes described as "Humpty-Dumpty" functions because it's easy to get Humpty-Dumpty up on the wall, but hard to put him back together after he falls. Diffe-Hellman-Merkle would attempt to find a solution in modular arithmetic, but the one-way mathematical encryption would ultimately be solved by another group of mathematicians.
 
@@ -95,12 +96,12 @@ A workable trapdoor mathematical function would be discovered by Ron Rivest, Adi
 
 RSA was first announced in August 1977 in *Scientific American*. The article, "A New Kind of Cipher that Would Take Millions of Years to Break," was authored by Martin Gardner. Gardner issued a challenge to the public to decode a message and issued the public key.  The message was decoded seventeen years later and required six hundred volunteers.
 
-### Dual Discoveries
+## Dual Discoveries
 
 Asymmetric public key encryption was discovered earlier in Great Britain by James Ellis who worked for the Government Communications Headquarters, but knowledge of the discovery was delayed because of national security. Ellis was a pack rat of academic articles and discovered the idea in a trove of old telecommunications articles. A paper proposed the idea of adding noise to the telephone line to make the signal unintelligible.  The recipient would then remove the noise to hear the message.  Lacking the mathematical background to create a padlock, Ellis' discovery languished until a new mathematician joined the team.  Clifford Cocks, a recent graduate of Cambridge with a specialization in number theory, discovered a one-way function.  In recalling his epiphany, he said "it was natural to think about one-way functions, something you could do but not undo. Prime numbers and factoring was a natural candidate." From start to finish, Cocks estimated that it took him no more than half an hour to solve. [@singhCodeBook1999]
   
   
-# 2 The RSA Algorithm
+# The RSA Algorithm
 Cryptography has become more important as we communicate globally with the internet. The sharing of credit card numbers, social security numbers, names, etc. online is an everyday occurrence and security for our information is a must. RSA cryptography is one solution protecting us from those who wish to steal our information. The RSA algorithm can be broken up into 3 sections: key generation, encryption, and decryption.
 
 
@@ -119,20 +120,21 @@ Step 6: Encrypt the message using $C\equiv M^e(mod\:n)$ to calculate the least r
 Step 7: Decrypt the ciphertext using $M\equiv C^d(mod\:n)$ to calculate the least residue $(mod\:n)$.
 
 
-# 2.1 Finding Large Primes(prob of prime 1/4, etc. , )
+# Finding Large Primes(prob of prime 1/4, etc. , )
 Calculating large primes for $p_0$ and $p_1$ is one of the "easier" parts of the key generation algorithm. The goal is to calculate $n$, the product of $p_0$ and $p_1$. $p_0$ and $p_1$ are very large: at least 512 digits, but 1024 digits is considered safe.[@steynHowRSAWorks]  
 
 A common method of primality testing relies on the "Rabin-Miller primality test." However, the Rabin-Miller primality is a *probability* test. The test calculates numbers that are high probable candidates for being prime.The Rabin-Miller test is one of the most efficient algorithms for calculating large primes for RSA cryptography and is used widely. Another popular primality test is the "Fermat primality test" relying upon Fermat's Little Theorem. 
 
 
-### Lemma 1:
+### Lemma 5.1: {-}
 If $a$ and $m$ are relatively prime integers, then the least residues of $a, 2a, 3a,...,(m-1)a\:(mod\: m)$ are equivalent to $1, 2, 3,..., (m-1)(mod\: m)$, up to reordering. 
 
 
-### Theorem 1: Fermat's Little Theorem
+### Theorem 5.2: Fermat's Little Theorem {-}
 If $p$ is a prime and $a$ is an integer such that $p\nmid a$, then $a^{p-1}\equiv 1 (mod p)$. 
 
-##### Proof of Fermat's Little Theorem: 
+
+##### Proof of Fermat's Little Theorem: {-} 
 Let $p$ be a prime and $a\in \mathbb{Z}$ such that $p\nmid a$.
 Thus $a$ and $p$ are relatively prime, i.e. $(a,p) = 1$.
 Thus, by the Lemma 1 $a, 2a, 3a,..., (p-1)a(mod\: p)$ have the least residues of $1, 2, 3,..., p-1(mod\: p)$ up to reordering.  
@@ -154,55 +156,51 @@ $$
 1 &\equiv (-1)\cdot  (-1) \\
 &\equiv (-1)\cdot a^{p-1}\cdot (p-1)! \\
 &\equiv (-1)\cdot a^{p-1}\cdot (-1) \\
-&\equiv a^{p-1} (mod\: p)
+&\equiv a^{p-1} (mod\: p).
 \end{aligned}
 $$  
 
 
 
-### Theorem 2: Fermat Primality Test  
+### Theorem 5.3: Fermat Primality Test {-} 
 An odd positive integer $n$ is composite if there exists a positive integer $a$ such that gcd$(a, n)=1$ and $a^{n-1} \ne 1(mod\:n)$. [@mcgregor-dorseyMethodsPrimalityTesting1999]
 
-### Definition 1: Fermat Pseudoprime  
+### Definition 5.4: Fermat Pseudoprime {-} 
 A Fermat pseudoprime to a base $a$ is a composite number $n$ such that $a^{n-1}\equiv 1 (mod n)$. [@weissteinFermatPseudoprime]  
 
-### Definition 2: Strong Pseudoprime  
+### Definition 5.5: Strong Pseudoprime {-} 
 A strong pseudoprime to a base $a$ is an odd composite number $n$ with $n-1 = d \cdot 2^s$ where $d$ is odd for which either $a^d \equiv 1 (mod\: n)$ or $a^{d\cdot 2^r} \equiv -1 (mod\: n)$ for some $r = 0,1, 2, ..., s-1$. [@weissteinStrongPseudoprime]  
 
-### Theorem 3:  
+### Lemma 5.6: {-} 
+If $p$ is a prime number, then the complete solution set to $x^2 \equiv 1 (mod\:p)$ is $x \equiv \pm 1(mod\:p)$.  
+
+### Lemma 5.7: {-} 
+Let $p$ be a prime such that $p=2^sq +1$ where $q$ is odd and let $a$ be an integer that is nonzero modulo $p$. Exactly one of the following holds:  
+(i) $a^q \equiv 1 (mod\:p)$;  
+(ii) $a^{2^iq} \equiv -1 (mod\: p)$, for some $0 \leq i <s$. [@sutherlandLectureNotes122017]
+
+### Theorem 5.8: {-} 
 Let $n$ be an odd prime, and write $n$ in the form of $1+2^s\cdot d$ where $d$ is an odd. Then the Rabin-Miller sequence  
 $$
 \begin{aligned}
 a^d,a^{2d}, a^{4d},..., a^{2^{s-1}d}, a^{2^sd} (mod\:n)
 \end{aligned}
 $$
-ends with $1$. If $a^d$ is not congruent to $1(mod\:n)$, then the value directly preceding the first appearance of $1$ is $n-1$.  
-
-### Lemma 2:  
-Let $p$ be a prime such that $p=2^sq +1$ where $q$ is odd and let $a$ be an integer that is nonzero modulo $p$. Exactly one of the following holds:  
-(i) $a^q \equiv 1 (mod\:p)$;  
-(ii) $a^{2^iq} \equiv -1 (mod\: p)$, for some $0 \leq i <s$. [@sutherlandLectureNotes122017]
+ends with $1$. If $a^d$ is not congruent to $1(mod\:n)$, then the value directly preceding the first appearance of $1$ is $n-1$.  [@mcgregor-dorseyMethodsPrimalityTesting1999]
 
 
-### Lemma 3:  
-If $p$ is a prime number, then the complete solution set to $x^2 \equiv 1 (mod\:p)$ is $x \equiv \pm 1(mod\:p)$.  
-
-### The Rabin-Miller Algorithm  
-Given an odd integer $n$, find an integer $s$ so that $n-1=2^sq$ for some odd $q$. Then,  
-
-1. Pick a random integer $a$ such that $1\leq a \leq n-1$.  
-2. If $a^q \equiv 1 (mod\: n)$, then $n$ might be prime and passes the test.  
-3. Otherwise, for $i= 0, 1, ..., s-1$, see if $a^{2^iq} \equiv -1 (mod\: n)$. If so, then $n$ could be prime and passes the test.  
-
+### Algorithm 5.9: The Rabin-Miller Algorithm {-} 
+Given an odd integer $n$, find an integer $s$ so that $n-1=2^sq$ for some odd $q$. Then,\hfill\break  1. Pick a random integer $a$ such that $1\leq a \leq n-1$.  
+2. If $a^q \equiv 1 (mod\: n)$, then $n$ could be prime and $n$ passes the test.  
+3. Otherwise, for $i= 0, 1, ..., s-1$, see if $a^{2^iq} \equiv -1 (mod\: n)$. If so, then $n$ could be prime and\qquad  $n$ passes the test.  
 4. Otherwise, $n$ is composite.  [@NumberTheoryPrimality]
 
 
- 
-#### Rabin-Miller Test Example:  
+#### Rabin-Miller Algorithm Example: {-} 
 
-Suppose we wish to determine whether 645 is prime. Then,  $n-1= 644 = 2^2 \cdot 161$  
+Suppose we wish to determine whether $n=645$ is prime. Then,  $n-1= 644 = 2^2 \cdot 161$.  
 1. Let $a=2$.  
-2. $2^{161} \equiv 257 (mod\: 645)$. Since $2^{161}$ is not congruent to $\pm 1(mod\: n)$, we move on to step 3.  
+2. $2^{161} \equiv 257 (mod\: 645)$. Since $2^{161}$ is not congruent to $1(mod\: n)$, we move on to step 3.  
 3.
 $$
 \begin{aligned} 
@@ -214,37 +212,73 @@ But $257^2$ and $259^2$ are not congruent to $-1(mod\: 645)$. Thus, $n$ is compo
 
 
 
-# 2.2 Using Euler's Totient Function 
+# Using Euler's Totient Function 
 Once two primes are found using a primality test, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to create the "trapdoor function." A trapdoor function that multiplies these two primes takes little time, but going backwards (the inverse) to find the original primes takes much longer. 
 
 For example, say the two prime numbers I picked were 257 and 331. Then, computing $n=(257)(331)=85,067$ takes no time at all. Now consider going the other direction. If I gave you the product of 85,067 to begin with and asked you to find the two primes I multiplied together to get this number, then this process becomes much more time consuming. Going one direction was easy, but going the other direction was much more difficult. The same difficulty goes for computers. This is the beauty of RSA encryption. Algorithms can be ranked by their efficiency. In the example above, 257 and 331 are incredibly small primes relative to the primes used for RSA encryption. Multiplying two of these large numbers still takes a small amount of time and computational resources. However, factoring $n$ requires a much more complex algorithm. In fact, recovering a prime number of 1024 bits would require a year's worth of work on a $10 million machine, and recovering a prime number of 2048 bits would require several billion times more work.[@jahanImprovedRSACryptosystem2015] However, this process is theoretically possible due to the Unique Factorization Theorem below. The prime factorization of 1024 bit number (308 digits) may still be an incredibly long factorization. 
 
-### Theorem 4: Unique Factorization Theorem
-Every natural number $n>1$ can be uniquely expressed as a product of primes. i.e. $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$.
+### Theorem 6.1: Unique Factorization Theorem {-}
+Every natural number $n>1$ can be uniquely expressed as a product of primes. i.e. $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$.  
+
+### Theorem 6.2: Correspondence Theorem for Divisors{-}  
+Let $a,b \in \mathbb{Z^+}$ such that $a$ and $b$ are relatively prime. Then every positive divisor of $a\cdot b$ can be uniquely expressed in the form $d \cdot e$ where $d$ is a positive divisor of $a$ and $e$ is a positive divisor of $b$. Any number of the form $d\cdot e$ such that $d |a$, $d>0$, $e|b$, and $e>0$ is also a divisor of $a\cdot b$. 
 
 
-### Euler's Totient Function 
+### Definition 6.3: Euler's Totient Function 
 If $n \in \mathbb{Z}^{+}$, $\phi(n)$ is defined to be the number of positive integers less than or equal to $n$ and relatively prime to $n$.[@NumberTheoryPrimality]  
 
+### Theorem 6.4:  
+Let $n$ have the prime power factorization $(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$. Then,  
+$$
+\begin{aligned}
+\phi(n) = \prod_{i=1}^{k} \phi(p_i^{e_i})= \prod_{i=1}^{k} p_i^{e_i-1}(p_i-1). 
+\end{aligned}
+$$
 
-### Lemma 2 
-For a prime $p$ and a positve integer $k$, 
+
+### Lemma 6.5 
+For a prime $p$ and a positive integer $k$, 
 $$
 \begin{aligned}
 \phi(p^k)=p^{k-1}\cdot (p-1).
 \end{aligned}
 $$  
   
-#### Proof of Lemma 2:  
+#### Proof of Lemma 6.5:  
 Let $p$ be a prime and let $k \in \mathbb{Z^+}$. There are $p^k$ positive integers that are less than or equal to $p^k$. Of these positive integers, the only numbers not relatively prime to $p^k$ are the multiples of $p$. i.e. $(1)p, (2)p, (3)p,..., (p^{k-1})p$. Thus, there are $p^{k-1}$ positive integers less than or equal to $p^k$ that are not relatively prime to $p^k$. Therefore,
 $$
 \begin{aligned}
 \phi(p^k)&=p^k-p^{k-1} \\
 &=p^{k-1}(p-1).
 \end{aligned}
-$$
+$$  
 
-# 2.3 Encryption and Decryption 
+### Corollary 6.6:  
+The Euler's totient function is multiplicative.  
+
+#### Proof of Corollary 6.6:  
+
+Suppose $n \in \mathbb{Z^+}$. Then $n$ has a unique prime power factorization by the Unique Factorization Theorem. Let $n=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_k^{e_k})$ for distinct primes $p_i$ and positive integers $e_i$ with $1\le i\le k$. Let $a=(p_1^{e_1})(p_2^{e_2})(p_3^{e_3})...(p_l^{e_l})$ and $b=(p_{l+1}^{e_{l+1}})(p_{l+2}^{e_{l+2}})...(p_k^{e_k})$ where $l \in \mathbb{Z}$ and $1 \leq l <k$. Hence, $n=ab$ and $(a,b)=1$.  Then $\phi(a)= \prod_{i=1}^{l} p_i^{e_i-1}(p_i-1)$ and $\phi(b)= \prod_{i=l+1}^{k} p_i^{e_i-1}(p_i-1)$ by Lemma 6.5. Thus,
+$$
+\begin{aligned}
+\phi(a)\cdot \phi(b) &= \prod_{i=1}^{l} p_i^{e_i-1}(p_i-1) \cdot \prod_{i=l+1}^{k} p_i^{e_i-1}(p_i-1) \\
+&= \prod_{i=1}^{l} p_i^{e_i}(1-\frac{1}{p_i}) \cdot \prod_{i=l+1}^{k} p_i^{e_i}(1- \frac {1}{p_i}) \\
+&= a\prod_{i=1}^{l} (1-\frac{1}{p_i}) \cdot b\prod_{i=l+1}^{k}(1- \frac {1}{p_i}) \\
+&= ab \prod_{i=1}^{k} (1-\frac{1}{p_i}) \\
+&= n \prod_{i=1}^{k} (1-\frac{1}{p_i})\\
+&= \prod_{i=1}^{k} p_i^{e_i}(1-\frac{1}{p_i}) \\
+&=\prod_{i=1}^{k} p_i^{e_i-1}(p_i-1) \\
+&= \phi(n) \qquad \textrm{by Lemma 6.5}\\
+&= \phi(ab).
+\end{aligned}
+$$
+Therefore, Euler's totient function is multiplicative by definition. 
+
+
+
+For the RSA algorithm, we are asked to calculate $\phi(n)$ where $n$ is the product of two primes $p_0$ and $p_1$. Since Euler's totient function is multiplicative, $\phi(p_0\cdot p_1)= \phi(p_0)\cdot \phi(p_1)$. Also, $p_0$ and $p_1$ have the unique prime power factorization of themselves. i.e. $p_0= p_0^1$ and $p_1=p_1^1$. Thus, $\phi(p_0)= (p_0-1)$ and $\phi(p_1) = (p_1-1)$. Therefore, $\phi(n)= (p_0-1)\cdot (p_1-1)$.
+
+# Encryption and Decryption 
 After calculating $\phi(n)$ for the RSA algorithm, the next step is to find an some integer $e$ between $1$ and $\phi(n)$ such that $e$ and $\phi(n)$ are relatively prime. $e$ is known as the "encryption exponent" that is used for the sender generating public key. The public key is the pair of positive integers $(e,n)$. Once $e$ is found, the sender then uses the congruence $C\equiv M^e(modn)$ to generate the ciphertext, $C$. Ciphertext is the encrypted messaged that hides the true meaning from anyone, other than the receiver, wishing to read the message.  
 
 In order for the receiver to decrypt the message, the receiver needs to have the private key, the pair of positive integers $(d, n)$. $d$ can be derived by the receiver because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (modn)$. With the private key, the receiver can then use the congruence $C \equiv M^d (modn)$.  
@@ -273,7 +307,7 @@ First, I will select two primes (much smaller than the standard RSA). Suppose I 
 
 Next, calculating $n=p_0\cdot p_1$ yields $n= 7\cdot 13 = 91$. Then, with Euler's Totient Function, $\phi(91) = (6)\cdot (12) = 72$.  
 
-Now, choose some integer $e$ such that $(e,\phi(n)) = 1$ where $1<e<\phi(n)$. Supposed I pick $e=23$. 
+Now, choose some integer $e$ such that $(e,\phi(n)) = 1$ where $1<e<\phi(n)$. Suppose I pick $e=23$. 
 
 Next, I create the ciphertext with $C\equiv M^e(modn)$. 
 $$
@@ -305,42 +339,29 @@ Because of advancements in computer technology, the next generation of encryptio
 
 ## NIST
 
-The NIST is the premier, standard-setting organization in the U.S.  According to its website, the mission of the NIST is to "promote U.S. innovation and industrial competitiveness by advancing measurement science, standards, and technology in ways that enhance economic security and improve our quality of life." Originally founded in 1901, the NIST is a part of the U.S. Department of Commerce and has led the promulgation of encryption standards. NIST technology secures tablets, cellphones, and ATMs; encrypts international transactions on the web; and protects US federal information including those with national security implications.
+The NIST is the premier, standard-setting organization in the U.S.  According to its website, the mission of the NIST is to "promote U.S. innovation and industrial competitiveness by advancing measurement science, standards, and technology in ways that enhance economic security and improve our quality of life." Originally founded in 1901, the NIST is a part of the U.S. Department of Commerce and has led the promulgation of encryption standards. NIST technology secures tablets, cellphones, and ATMs; encrypts international transactions on the web; and protects U.dS. federal information including those with national security implications.
 
 NIST's first encryption standard was known as the Data Encryption Standard (DES) and was adopted in 1977. The DES standard, its definition, and processing standards were withdrawn in 2005. The NIST published its second standard, the Advanced Encryption Standard (AES), in 1997 after a 4 1/2-year process. The AES was officially adopted in 2001. The encryption algorithm is known as the "Rijndael" algorithm and was developed by Belgium scientists Joan Daemen and Vincent Rijmen. (The algorithm is pronounced as "rain doll"). The Rijndael algorithm was picked as the best out of the 15 originally submitted algorithms.  NIST is in the process of adopting its third standard because of advances in quantum computing.
 
 ## Quantum Computing
 
-Quantum computing is the next generation in computer technology and harnesses the power of quantum mechanics. According to [wikipedia](https://en.wikipedia.org/wiki/Quantum_computing), "while quantum computers provide no additional advantages over classical computers in terms of computability, quantum algorithms for certain problems have significantly lower time complexities than corresponding known classical algorithms. Notably, quantum computers are believed to be able to quickly solve certain problems that no classical computer could solve in any feasible amount of time—a feat known as "quantum supremacy."
+Quantum computing is the next generation in computer technology and harnesses the power of quantum mechanics. Classical computing does not have the computational complexity to factor large enough primes and break the security of RSA. It would take trillions of years for a classical computer to break an RSA-2048 bit encryption key.[@BreakingRSAEncryption]  However, quantum computing is a serious threat to the security of encryption. Once quantum computers and stable and large enough, a quantum computer will be able to factor an RSA semiprime (the product of two primes) in the same amount of time that a classical computer can multiply the primes together. [@kirschQuantumComputingRisk2015]  
 
 NIST's annual report, "[2021 Cybersecurity and Privacy Annual Report](https://bit.ly/3sLIzal)",
 described the state of quantum computing and cryptography as follows:
 
 > [T]here has been steady progress in building quantum computers – machines
 that exploit quantum mechanical phenomena to solve problems that are difficult or intractable
-for conventional computers. When the capacity to build large-scale quantum computers exists, they will be able to break many of the public-key cryptosystems currently in use. This weakness would seriously compromise the confidentiality and integrity of digital communications online and elsewhere.
+for conventional computers. When the capacity to build large-scale quantum computers exists, they will be able to break many of the public-key cryptosystems currently in use. This weakness would seriously compromise the confidentiality and integrity of digital communications online and elsewhere.[@oreilly2021CybersecurityPrivacy2022]
 
 An ominous prediction was offered within the report that current public key encryption systems will be obsolete within the next 20 years.
-
-McKinsey and Company releases a quarterly report entitled, "[Quantum Technology Monitor](https://mck.co/3Nilh5a)."  In June 2022, McKinsey documented $1.24 billion in private investment start-ups and $1.9 billion of announced government funding for the development of quantum technology.  China increased its quantum technology patent activity and originated more than half globally. "Public and private funding continues to **skyrocket** around the world, with North America still investing the most."
-
 ## Standardized Algorithm
 
-The next generation of encryption standards is being considered by NIST and deemed a priority because of advances in quantum computing.  To meet this new challenge, NIST began by evaluating 15 new algorithms. The algorithms were evaluated in rounds with the third round victors being announced in 2022 and a fourth round to be held for the remaining algorithms.  According to the latest news release on July 5, 2022, NIST will recommend for most use cases the CRYSTALS-KYBER for key establishment and CRYSTALS-Dilithium for digital signatures. The current status of the standard is maintained on the NIST [Post-Quantum Cryptography Project website](https://csrc.nist.gov/Projects/post-quantum-cryptography).
-
-In describing CRYSTALS-KYBER's performance, the NIST declared the public and cipher key size "in the order of a thousand bytes which should be acceptable for most applications." The [conclusion](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf) was that "the security of KYBER  has been thoroughly analyzed and is based on a strong framework of results in lattice-based cryptography. KYBER has excellent performance overall in software, hardware, and many hybrid settings."
+The next generation of encryption standards is being considered by NIST and deemed a priority because of advances in quantum computing. To meet this new challenge, the NIST has held a public competition to analyze algorithms that will have the capability of protecting sensitive government information. The competition started in 2015 and is still narrowing down the candidate algorithms based upon security, cost, performance, algorithms, and implementation characteristics. [@alagicStatusReportThird2022] According to the latest news release on July 5, 2022, NIST will recommend for most use cases the CRYSTALS-KYBER for key establishment. The current status of the standard is maintained on the NIST [Post-Quantum Cryptography Project website](https://csrc.nist.gov/Projects/post-quantum-cryptography). In describing CRYSTALS-KYBER's performance, the NIST declared the public and cipher key size "in the order of a thousand bytes which should be acceptable for most applications." The [conclusion](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf) was that "the security of KYBER  has been thoroughly analyzed and is based on a strong framework of results in lattice-based cryptography. KYBER has excellent performance overall in software, hardware, and many hybrid settings."
 
 # Conclusion(Note: Still need)
 
 
-\newpage  
-
-
-# Notes:
-1. More explanation of finding large primes
-2. Ask about a better flow in "Euler's Totient Function." Include Euler's theorem, but show it's similar to Fermat's Little Theorem. Also, need another word/title for "Lemma."
-3. Include definitions page for smaller elements like multiplicative inverse, gcd, relatively prime, etc. 
-4. (Ask) Could need to add Chinese Remainder Theorem, Euclidean Algorithm, etc. 
 
 
 
@@ -349,13 +370,9 @@ In describing CRYSTALS-KYBER's performance, the NIST declared the public and cip
 
 
 
-<!-- “In ancient India, there were two kinds of ciphers Kauitiliyam and Mulavediya noted in 2000 year old Kamasutra of Vatsyayana.” ([Naser, 2021, p. 12](zotero://select/library/items/B68WUS6S)) ([pdf](zotero://open-pdf/library/items/S22QKEUR?page=2&annotation=5DPJC6BB))[@naserCryptographyAncientHistory2021] -->
-
-<!-- “The first cipher device was probably invented by Leon Battista Alberti, an automatic cipher device, where he used a wheel.” ([Naser, 2021, p. 12](zotero://select/library/items/B68WUS6S)) ([pdf](zotero://open-pdf/library/items/S22QKEUR?page=2&annotation=ZTYAEGYV))[@naserCryptographyAncientHistory2021] -->
 
 
 
-\newpage
 
 
 
@@ -409,60 +426,6 @@ kbl(acronyms, longtable = T, booktabs = T, caption = "NIST Cryptography Acronyms
 
 ```
 
-
-<!-- # Appendix - Encrypt Number Using RSA -->
-
-<!-- This is a short RSA encryption example taken from Chapter [5.3. RSA Public Key Cryptography](https://www.garykessler.net/library/crypto.html#dhmath), Introduction to Cryptography by Gary Kessler. To encrypt a message, the receiver generates two public keys $n$ and $e$, and one private key $d$. -->
-
-<!-- ## Step 1.  -->
-
-<!-- Choose two prime numbers, $p$ and $q$. From these numbers you can calculate the modulus, $n = pq$. -->
-
-<!-- ```{r rsa-number-step-1} -->
-<!-- p <- 3; q <- 5 -->
-<!-- n <- p * q -->
-<!-- ``` -->
-
-<!-- ## Step 2. -->
-
-<!-- Select a third number, $e$, that is relatively prime to (i.e., it does not divide evenly into) the product $(p-1)(q-1)$. The number $e$ is the public exponent.  -->
-<!-- $(p -1) * (q - 1) = 8$, so choose 11. -->
-
-<!-- ```{r rsa-number-step-2} -->
-<!-- e <- 11 -->
-<!-- ``` -->
-
-<!-- ## Step 3. -->
-
-<!-- Calculate an integer $d$ from the quotient $(ed - 1) / [(p - 1)(q - 1)]$. The number $d$ is the private exponent. -->
-
-<!-- ```{r rsa-number-step-3} -->
-<!-- d <- 3 -->
-<!-- ``` -->
-
-<!-- ## Step 4. -->
-
-<!-- Compose a message $M$. Here, the message consists of a single integer "7". -->
-
-<!-- ```{r rsa-number-step-4} -->
-<!-- M <- 7 -->
-<!-- ``` -->
-
-<!-- ## Step 5. -->
-
-<!-- Encrypt message to cipher text $C$ with the equation, $C = M^e \mod n$. -->
-
-<!-- ```{r rsa-number-step-5} -->
-<!-- (C <- (M^e) %% n) -->
-<!-- ``` -->
-
-<!-- ## Step 6. -->
-
-<!-- The receiver decrypts the ciphertext $C$ using the private key value $(d,n)=(3,15)$. -->
-
-<!-- ```{r rsa-number-step-6} -->
-<!-- (C^d) %% n -->
-<!-- ``` -->
 
 
 
