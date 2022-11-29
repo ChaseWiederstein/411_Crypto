@@ -80,7 +80,7 @@ The process of "key distribution" required the delivery of the key to the receiv
 ## Asymmetric Keys  
 Asymmetric cryptography, also called "public key cryptography" relies on two parties and four keys. Each party has a private key and a public key. The private key must be kept private, but the public key can be distributed to anyone that requests it. The public key is used for encrypting a message, and the private key is used for decrypting a message. When one party encrypts and sends a message, the other party must have a key that is related, yet different to decrypt the message.
 
-## Assymetric Key Example 
+## Asymmetric Key Example 
 
 Examples from cryptography involve a traditional cast of characters: Alice, Bob, and Eve. Alice and Bob wish to exchange a secure message while Eve wishes to eavesdrop and steal the message. Before Diffie-Hellman, Alice and Bob would have to meet to exchange keys. If they were exchanging lots of messages or wanted to change encryption methods, they might have to meet weekly. The system breaks down when one of them gets sick. Couriers could help but they also add complexity and potential insecurity to the process.[@singhCodeBook1999]
 
@@ -129,7 +129,7 @@ Step 7: Decrypt the ciphertext using $M\equiv C^d(mod\:n)$ to calculate the leas
 
 Calculating large primes for $p_0$ and $p_1$ is one of the "easier" parts of the key generation algorithm. The goal is to calculate $n$, the product of $p_0$ and $p_1$. $p_0$ and $p_1$ are very large: at least 512 digits, but 1024 digits is considered safe.[@steynHowRSAWorks]  
 
-Finding large primes relies on a process called "primality testing." A primality test is an algorithm that determines whether a number is prime or composite. There are several primality tests in existence. The most common primality test for RSA crypotgraphy is the Rabin-Miller which has is based off of Fermat's Little Theorem. In this paper, I will cover two primality tests: the trial division test and the Fermat primality test. However, the Fermat test, just like the Rabin-Miller, is a *probability* test for efficiency purposes. The test calculates numbers that are high probable candidates for being prime based off of characteristics of prime numbers. 
+Finding large primes relies on a process called "primality testing." A primality test is an algorithm that determines whether a number is prime or composite. There are several primality tests in existence. The most common primality test for RSA cryptography is the Rabin-Miller which is based on Fermat's Little Theorem. In this paper, I will cover two primality tests: the trial division test and the Fermat primality test. However, the Fermat test, just like the Rabin-Miller, is a *probability* test for efficiency purposes. The test calculates numbers that are highly probable candidates for being prime based on the characteristics of prime numbers. 
 
 ### Theorem 5.1: {-}
 
@@ -211,7 +211,7 @@ Suppose we wish to determine if 127 is prime.
 5. Let $a=6$. Then, $6^{126} \equiv 1 (mod\:127)$.\hfill\break Thus, the test concludes that 127 is prime or Carmichael with probability greater than $1-1/2^5 = .96875$.
 
 
-Once two primes are found using a primality test, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to create the trapdoor function. A trapdoor function that multiplies these two primes takes little time, but going backwards (the inverse) to find the original primes takes much longer. 
+Once two primes are found using a primality test, multiplying them together yields $n$, the modulus used in each of the key pairs. The reason for doing this is to create the trapdoor function. A trapdoor function that multiplies these two primes takes a little time, but doing the inverse to find the original primes takes much longer. 
 
 For example, say the two prime numbers I picked were 257 and 331. Then, computing $n=(257)(331)=85,067$ takes no time at all. Now consider going in the other direction. If I gave you the product of 85,067 to begin with and asked you to find the two primes I multiplied together to get this number, then this process becomes much more time-consuming. Going in one direction was easy, but going in the other direction was much more difficult. The same difficulty goes for computers. This is the beauty of RSA encryption. Algorithms can be ranked by their efficiency. In the example above, 257 and 331 are incredibly small primes relative to the primes used for RSA encryption. Multiplying two of these large numbers still takes a small amount of time and computational resources. However, factoring $n$ requires a much more complex algorithm. In fact, recovering a prime number of 1024 bits would require a year's worth of work on a $10 million machine, and recovering a prime number of 2048 bits would require several billion times more work.[@jahanImprovedRSACryptosystem2015] However, this process is theoretically possible due to the Unique Factorization Theorem. 
 
@@ -253,7 +253,7 @@ $$
 
 ### Corollary 6.5:  {-}
 
-The Euler's totient function is multiplicative.  
+Euler's totient function is multiplicative.  
 
 #### Proof of Corollary 6.5:  {-}
 
@@ -280,9 +280,9 @@ For the RSA algorithm, we are asked to calculate $\phi(n)$ where $n$ is the prod
 
 After calculating $\phi(n)$ for the RSA algorithm, the next step is to find an integer $e$ between $1$ and $\phi(n)$ such that $e$ and $\phi(n)$ are relatively prime. $e$ is known as the "encryption exponent" that is used to generate the public key. The public key is the pair of positive integers $(e,n)$. The sender then uses the congruence $C\equiv M^e(mod \:n)$ to generate the ciphertext, $C$. Ciphertext is the encrypted message that hides the true meaning from anyone, other than the receiver, wishing to read the message.  
 
-For the receiver to decrypt the message, the receiver needs to have the private key, the pair of positive integers $(d, n)$. $d$ can be derived by the receiver because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (mod\:n)$. With the private key, the receiver can then use the congruence $M \equiv C^d (mod\:n)$ to decrypt the message. Only the reciever knows the true values of $p_0$, $p_1$, and $\phi(n)$, so only the reciever can calculate the private key. The sender only has the public key.  
+For the receiver to decrypt the message, the receiver needs to have the private key, the pair of positive integers $(d, n)$. $d$ can be derived by the receiver because $d$ is the multiplicative inverse of $e$. i.e. $d\equiv e^{-1} (mod\:n)$. With the private key, the receiver can then use the congruence $M \equiv C^d (mod\:n)$ to decrypt the message. Only the receiver knows the true values of $p_0$, $p_1$, and $\phi(n)$, so only the receiver can calculate the private key. The sender only has the public key.  
 
-In summary, Alice wishes to send Bob a message. Bob follows the steps 1-5 in order to generate his public and private key. Anyone can see Bob's public key, but no one can see his private key. Alice uses Bob's public key to encrypt her message. Once Bob receives the ciphertext, Bob uses his private key to decrypt the message. 
+In summary, Alice wishes to send Bob a message. Bob follows steps 1-5 to generate his public and private keys. Anyone can see Bob's public key, but no one can see his private key. Alice uses Bob's public key to encrypt her message. Once Bob receives the ciphertext, Bob uses his private key to decrypt the message. 
 
 # RSA Example 
 
@@ -303,7 +303,7 @@ kableExtra::kbl(ASCIItbl, booktabs = T, caption = "ASCII: A-Z") |>
 
 ```
 
-Suppose Alice wishes to send the message "RSA" to Bob. She needs Bob's public key in order to do so. It is important for Alice to represent each value of "RSA" by a number between $0$ and $n-1$. [@rivestMethodObtainingDigital1978] For this example, we will use a message ($M_1$, $M_2$, and $M_3$) for each character. After conversion, R will now be $M_1 = 82$, S will be $M_2=83$, and A will be $M_3=65$.
+Suppose Alice wishes to send the message "RSA" to Bob. She needs Bob's public key to do so. Alice needs to represent each value of "RSA" by a number between $0$ and $n-1$. [@rivestMethodObtainingDigital1978] For this example, we will use a message ($M_1$, $M_2$, and $M_3$) for each character. After conversion, R will now be $M_1 = 82$, S will be $M_2=83$, and A will be $M_3=65$.
 
 First, Bob will select two primes (much smaller than the standard RSA). Suppose Bob picks $p_0=7$ and $p_1=13$.  
 
@@ -346,7 +346,7 @@ The NIST is the premier, standard-setting organization in the U.S.  According to
 
 ## RSA Factoring Challenge  
 
-RSA Laboratories created the "RSA Factoring Challenge" in 1991 to encourage research into computational number theory and cracking RSA keys uses in cryptography.[@RSAFactoringChallenge2022] RSA laboratories offers cash prizes to those who manage to factor "semiprimes" (numbers that are the product of two primes) down to their prime factorizations used in generating RSA keys. The first challenge, named "RSA-100," was to factor a 100 digit (330-bit) number and was successfully completed in 1991.[@smartHistoryCryptographicKey2021] In 2020, the "RSA-250" was beaten and involved the factoring of a 250 digit (829 bit) number. Factoring the sempiprimes used for the modulus in RSA has yet to occur, but will eventually happen in the near future. 
+RSA Laboratories created the "RSA Factoring Challenge" in 1991 to encourage research into computational number theory and cracking RSA keys uses in cryptography.[@RSAFactoringChallenge2022] RSA laboratories offers cash prizes to those who manage to factor "semiprimes" (numbers that are the product of two primes) down to their prime factorizations used in generating RSA keys. The first challenge, named "RSA-100," was to factor a 100-digit (330-bit) number and was successfully completed in 1991.[@smartHistoryCryptographicKey2021] In 2020, the "RSA-250" was beaten and involved the factoring of a 250-digit (829-bit) number. Factoring the semiprimes used for the modulus in RSA has yet to occur, but will happen soon. 
 
 
 ## Quantum Computing
@@ -367,7 +367,8 @@ An ominous prediction was offered within the report that current public key encr
 The next generation of encryption standards is being considered by NIST and deemed a priority because of advances in quantum computing. To meet this new challenge, the NIST has held a public competition to analyze algorithms that will have the capability of protecting sensitive government information. The competition started in 2015 and is still narrowing down the candidate algorithms based on security, cost, performance, algorithms, and implementation characteristics.[@alagicStatusReportThird2022] According to the latest news release on July 5, 2022, NIST will recommend for most use cases the CRYSTALS-KYBER for key establishment.[@alagicStatusReportThird2022] The current status of the standard is maintained on the NIST [Post-Quantum Cryptography Project website](https://csrc.nist.gov/Projects/post-quantum-cryptography). In describing CRYSTALS-KYBER's performance, the NIST declared the public and cipher key size in the order of a thousand bytes (8000 bits) which should be acceptable for most applications.[@alagicStatusReportThird2022] The [conclusion](https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8413-upd1.pdf) was that "the security of KYBER  has been thoroughly analyzed and is based on a strong framework of results in lattice-based cryptography. KYBER has excellent performance overall in software, hardware, and many hybrid settings."[@alagicStatusReportThird2022]
 
 # Conclusion  
-One of the biggest pillars of cryptography, whether it be ancient or contemporary, is number theory. The main reason the security of RSA is exceptional is due to the inability modern computers have to factor large primes. However, throughout history, cryptanalysts (those who break into cryptosystems and decrypt messages) have always caught on to cryptographers (those who create hidden messsages). RSA, with its encryption standards today, will eventually be be insecure. However, number theorists around world will play a key roll in developing new encryption standards for the betterment of cybersecurity and the future of RSA.  
+
+One of the biggest pillars of cryptography, whether it be ancient or contemporary, is number theory. The main reason the security of RSA is exceptional is due to the inability of modern computers to factor large primes. However, throughout history, cryptanalysts (those who break into cryptosystems and decrypt messages) have always caught on to cryptographers (those who create hidden messages). RSA, with its encryption standards today, will eventually be insecure. However, number theorists around world will play a key role in developing new encryption standards for the betterment of cybersecurity and the future of RSA.  
 
 \newpage
 
@@ -400,7 +401,7 @@ kableExtra::kbl(primes[1:50, ],
 library(kableExtra)
 ascii <- readRDS("./data/ascii.rds")
 kbl(ascii, longtable = T, booktabs = T, caption = "US-ASCII Printable Characters") |> 
-  kable_styling(latex_options = c("repeat_header")) 
+  kable_styling(font_size = 9, latex_options = c("repeat_header"))
 ```
 
 
