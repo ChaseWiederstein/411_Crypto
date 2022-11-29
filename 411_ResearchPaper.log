@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.18)  25 NOV 2022 14:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.11.18)  29 NOV 2022 09:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -568,144 +568,174 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 114.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 136.
+(Font)              <12> on input line 137.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 136.
+(Font)              <8> on input line 137.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 136.
+(Font)              <6> on input line 137.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [1
 
 {c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<./img/spartanScytale.jpg, id=179, 421.96355pt x 264.2129pt>
+<./img/spartanScytale.jpg, id=159, 421.96355pt x 264.2129pt>
 File: ./img/spartanScytale.jpg Graphic file (type jpg)
 <use ./img/spartanScytale.jpg>
-Package pdftex.def Info: ./img/spartanScytale.jpg  used on input line 192.
+Package pdftex.def Info: ./img/spartanScytale.jpg  used on input line 194.
 (pdftex.def)             Requested size: 375.82323pt x 235.3221pt.
 [2 <./img/spartanScytale.jpg>] [3] [4] [5]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 393.
+(hyperref)                than one, level fixed on input line 381.
 
-[6]
-Underfull \hbox (badness 10000) in paragraph at lines 478--480
-
- []
-
-[7]
+[6] [7]
 
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 549.
+(hyperref)                than one, level fixed on input line 539.
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 577--580
 
- []
-
-[9] [10] [11] [12] [13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 862--867
+Underfull \hbox (badness 10000) in paragraph at lines 549--552
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 868--872
+[8] [9] [10] [11] [12] [13]
+Underfull \hbox (badness 10000) in paragraph at lines 840--845
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 873--876
+Underfull \hbox (badness 10000) in paragraph at lines 846--850
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 877--881
+Underfull \hbox (badness 10000) in paragraph at lines 851--854
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 882--886
+Underfull \hbox (badness 10000) in paragraph at lines 855--860
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 887--891
+Underfull \hbox (badness 10000) in paragraph at lines 861--865
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 892--895
+Underfull \hbox (badness 10000) in paragraph at lines 866--871
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 896--899
+Underfull \hbox (badness 10000) in paragraph at lines 872--876
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 900--904
+Underfull \hbox (badness 10000) in paragraph at lines 877--880
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 905--908
+Underfull \hbox (badness 10000) in paragraph at lines 881--884
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 909--915
+Underfull \hbox (badness 10000) in paragraph at lines 885--891
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 916--921
+Underfull \hbox (badness 10000) in paragraph at lines 892--896
 
  []
 
-[15] [16] [17]
-Overfull \hbox (129.47285pt too wide) in alignment at lines 1006--1011
+
+Underfull \hbox (badness 10000) in paragraph at lines 897--902
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 903--906
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 907--910
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 911--915
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 916--920
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 921--926
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 927--931
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 932--938
+
+ []
+
+[14] [15] [16]
+Overfull \hbox (129.47285pt too wide) in alignment at lines 1025--1030
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (129.47285pt too wide) in alignment at lines 1011--1016
+Overfull \hbox (129.47285pt too wide) in alignment at lines 1030--1035
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (129.47285pt too wide) in alignment at lines 1016--1018
+Overfull \hbox (129.47285pt too wide) in alignment at lines 1035--1037
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (129.47285pt too wide) in alignment at lines 1018--1020
+Overfull \hbox (129.47285pt too wide) in alignment at lines 1037--1039
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (129.47285pt too wide) in alignment at lines 1020--1136
+Overfull \hbox (129.47285pt too wide) in alignment at lines 1039--1155
  [] [] [] [] [] [] [] [] 
  []
 
-[18] [19] [20] [21] [22] (./411_ResearchPaper.aux)
+[17] [18] [19] (./411_ResearchPaper.aux)
 Package rerunfilecheck Info: File `411_ResearchPaper.out' has not changed.
-(rerunfilecheck)             Checksum: FAC44CAC1E3560C43BE277EFD66C9190;6566.
+(rerunfilecheck)             Checksum: 4F213B12F63DEF1BF7D41CC5C08EAD68;5596.
  ) 
 Here is how much of TeX's memory you used:
- 12635 strings out of 476931
- 205158 string characters out of 5822845
- 607661 words of memory out of 5000000
- 33510 multiletter control sequences out of 15000+600000
+ 12615 strings out of 476931
+ 204851 string characters out of 5822845
+ 607267 words of memory out of 5000000
+ 33499 multiletter control sequences out of 15000+600000
  525236 words of font info for 71 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,10n,77p,714b,540s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 411_ResearchPaper.pdf (22 pages, 285309 bytes).
+ 72i,10n,77p,714b,542s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Users/Chase Wiederstein/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 411_ResearchPaper.pdf (19 pages, 276836 bytes).
 PDF statistics:
- 452 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 134 named destinations out of 1000 (max. 500000)
- 326 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 410 PDF objects out of 1000 (max. 8388607)
+ 357 compressed objects within 4 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 286 words of extra memory for PDF output out of 10000 (max. 10000000)
 
